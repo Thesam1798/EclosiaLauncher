@@ -53,9 +53,7 @@ script:
       npm run cidarwin
     fi
 
-after_script:
-  - pwd
-  - ls
+before_deploy:
   - cd .. && ls
 
 deploy:
