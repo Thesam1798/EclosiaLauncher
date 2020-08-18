@@ -10,8 +10,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build-prod": "ng build --buildOptimizer=true --prod --outputHashing=all --sourceMap=true",
-    "jenkins": "node clean.js && ng build --buildOptimizer=true --outputHashing=all --sourceMap=true",
-    "build": "ng build",
+    "jenkins": "node clean.js && yarn build && yarn electron-builder",
+    "build": "ng build --buildOptimizer=true --outputHashing=all --sourceMap=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -46,7 +46,7 @@
       "target": "dmg"
     },
     "linux": {
-      "target": "deb"
+      "target": "zip"
     }
   },
   "dependencies": {
