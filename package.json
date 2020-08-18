@@ -10,7 +10,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build-prod": "ng build --buildOptimizer=true --prod --outputHashing=all --sourceMap=true",
-    "jenkins": "node clean.js && npm run build-prod",
+    "jenkins": "node clean.js && ng build --prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
