@@ -53,6 +53,11 @@ script:
       npm run cidarwin
     fi
 
+after_script:
+  - pwd
+  - ls
+  - cd .. && ls
+
 deploy:
   provider: releases
   api_key: $TOKEN
