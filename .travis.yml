@@ -64,7 +64,7 @@ deploy:
   file: "build/*"
   overwrite: true
   prerelease: true
-  cleanup: false
+  skip_cleanup: true
   on:
     tags: false
     all_branches: true
