@@ -10,7 +10,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build-prod": "ng build --buildOptimizer=true --prod --outputHashing=all --sourceMap=true",
-    "jenkins": "node clean.js && ng build && electron-builder --deb-no-default-config-files",
+    "jenkins": "node clean.js && ng build --buildOptimizer=true --prod --outputHashing=all --sourceMap=true",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
