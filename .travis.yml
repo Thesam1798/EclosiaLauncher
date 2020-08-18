@@ -37,10 +37,9 @@ cache:
 before_script:
   - node -v
   - npm -v
-  - pwd
-  - cd angular && ls && yarn install
-  - cd angular && ls && yarn build-prod
-  - cd electron && ls && yarn
+  - cd angular && yarn install
+  - yarn build-prod
+  - cd ../electron && yarn
 
 script:
   - |
@@ -60,6 +59,8 @@ deploy:
   provider: releases
   api_key: $TOKEN
   file: "build/*"
-  skip_cleanup: true
+  overwrite: true
+  prerelease: true
+  cleanup: false
   on:
     tags: false
