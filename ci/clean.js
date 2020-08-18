@@ -23,3 +23,5 @@ deleteFolderRecursive("./build");
 deleteFolderRecursive("./dist");
 
 console.log("Successfully cleaned working tree!");
+
+// For Update ...
