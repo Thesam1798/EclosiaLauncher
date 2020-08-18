@@ -36,9 +36,9 @@ cache:
 before_script:
   - node -v && npm -v
   - ls
-  - cd angular && yarn install
-  - cd angular && yarn build-prod
-  - cd electron && yarn
+  - cd angular && ls && yarn install
+  - cd angular && ls && yarn build-prod
+  - cd electron && ls && yarn
 
 jobs:
   include:
