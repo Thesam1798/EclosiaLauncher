@@ -59,7 +59,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key: $TOKEN
-  file: "build/*"
+  file: "electron/output/*"
   overwrite: true
   prerelease: true
   skip_cleanup: true

@@ -24,7 +24,7 @@ builder.build({
         copyright: 'Copyright © 2018-2020 Alexandre Debris',
         directories: {
             buildResources: 'build',
-            output: '../build'
+            output: 'output'
         },
         win: {
             target: [
