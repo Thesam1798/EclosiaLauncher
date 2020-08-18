@@ -35,9 +35,9 @@ cache:
     - electron/node_modules
 
 before_script:
-  - cd angular && yarn install
+  - cd angular && npm install yarn && yarn install
   - yarn build-prod
-  - cd ../electron && yarn
+  - cd ../electron && npm install yarn && yarn install
 
 script:
   - |
