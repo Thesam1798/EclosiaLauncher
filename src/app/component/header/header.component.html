@@ -1,0 +1,26 @@
+<div id="frameBar">
+  <div class="frameDragPadder" id="frameResizableTop"></div>
+  <div id="frameMain">
+    <div class="frameResizableVert frameDragPadder"></div>
+    <div id="frameContentWin"> <!--Drag on drop de la page : frameContentWin-->
+      <div id="frameTitleDock">
+        <span id="frameTitleText">{{title}}</span>
+      </div>
+      <div id="frameButtonDockWin">
+        <button (click)="miniApp()" class="frameButton fMb" id="frameButton_minimize" tabIndex="-1">
+          <svg height="10" name="TitleBarMinimize" viewBox="0 0 12 12" width="10">
+            <rect fill="#ffffff" height="1" stroke="#ffffff" width="10" x="1" y="6"></rect>
+          </svg>
+        </button>
+        <button (click)="closeApp()" class="frameButton fCb" id="frameButton_close" tabIndex="-1">
+          <svg height="10" name="TitleBarClose" viewBox="0 0 12 12" width="10">
+            <polygon fill="#ffffff" fill-rule="evenodd"
+                     points="11 1.576 6.583 6 11 10.424 10.424 11 6 6.583 1.576 11 1 10.424 5.417 6 1 1.576 1.576 1 6 5.417 10.424 1"
+                     stroke="#ffffff"></polygon>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="frameResizableVert frameDragPadder"></div>
+  </div>
+</div>

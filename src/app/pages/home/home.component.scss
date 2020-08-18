@@ -1,0 +1,510 @@
+body,
+div,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+
+body,
+button {
+  font-family: 'Avenir Book', serif;
+  color: #fff;
+}
+
+#welcomeImageSeal {
+  border-radius: 50%;
+  border: 2px solid #cad7e1;
+  background: rgba(1, 2, 1, .5);
+  height: 125px;
+  width: 125px;
+  box-shadow: 0 0 10px 0 #000;
+  margin-bottom: 5%;
+  margin-top: 10%;
+  padding: 5px;
+}
+
+#welcomeImageSeal-img {
+  position: relative;
+  top: calc(8px / 2);
+  left: calc(7px / 2);
+  height: 120px;
+  width: 120px;
+}
+
+.loginSpanDim {
+  font-size: 12px;
+  color: #848484;
+  font-weight: 700;
+  padding-right: 5px;
+}
+
+#loginContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  transition: filter 0.25s ease;
+  background: rgba(0, 0, 0, .5);
+}
+
+#loginCancelContainer {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+
+#loginCancelButton {
+  background: 0 0;
+  border: none;
+  outline: 0;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+#loginCancelButton:focus #loginCancelIcon,
+#loginCancelButton:focus #loginCancelText,
+#loginCancelButton:hover #loginCancelIcon,
+#loginCancelButton:hover #loginCancelText {
+  text-shadow: 0 0 20px #fff;
+}
+
+#loginCancelButton:focus #loginCancelIcon,
+#loginCancelButton:hover #loginCancelIcon {
+  box-shadow: 0 0 20px #fff;
+}
+
+#loginCancelButton:active #loginCancelIcon,
+#loginCancelButton:active #loginCancelText {
+  text-shadow: 0 0 20px rgba(255, 255, 255, .75);
+  color: rgba(255, 255, 255, .75);
+  border-color: rgba(255, 255, 255, .75);
+}
+
+#loginCancelButton:active #loginCancelIcon {
+  box-shadow: 0 0 20px rgba(255, 255, 255, .75);
+}
+
+#loginCancelButton:disabled {
+  pointer-events: none;
+}
+
+#loginCancelButton:disabled #loginCancelIcon,
+#loginCancelButton:disabled #loginCancelText {
+  color: rgba(255, 255, 255, .75);
+  border-color: rgba(255, 255, 255, .75);
+}
+
+#loginCancelIcon {
+  border-radius: 50%;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+  height: 30px;
+  width: 30px;
+  font-size: 19px;
+  line-height: 30px;
+  margin: 0 auto 5px;
+  transition: 0.25s ease;
+}
+
+#loginCancelText {
+  font-size: 15px;
+  transition: 0.25s ease;
+}
+
+#loginContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 25px;
+}
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#loginForm a {
+  font-size: 12px;
+  color: #848484;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+#loginForm a:focus,
+#loginForm a:hover {
+  color: #a2a2a2;
+  outline: 0;
+}
+
+#loginForm a:active {
+  color: #8b8b8b;
+}
+
+#loginSubheader {
+  font-family: 'Avenir Medium', serif;
+  margin-bottom: 25px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.loginFieldContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginSVG {
+  fill: #fff;
+  height: 20px;
+  width: 20px;
+}
+
+.loginErrorSpan {
+  font-family: 'Avenir Medium', serif;
+  font-weight: 700;
+  font-size: 8px;
+  color: #ff1b0c;
+  width: 100%;
+  text-align: right;
+  position: absolute;
+  top: 7px;
+  opacity: 0;
+  transition: 0.25s ease;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.loginField {
+  font-family: 'Avenir Book', serif;
+  background: 0 0;
+  border-width: 1.5px 0 0 0;
+  border-style: solid;
+  width: 250px;
+  margin-bottom: 20px;
+  border-color: #fff;
+  color: rgba(255, 255, 255, .75);
+  font-weight: 700;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 7.5px;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.loginField:focus {
+  outline: 0;
+}
+
+.loginField:disabled {
+  color: rgba(255, 255, 255, .5);
+}
+
+.loginField::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, .75);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.loginField:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+#loginOptions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#loginRememberText {
+  padding-right: 10px;
+  transition: 0.25s ease;
+}
+
+#loginButton {
+  background: 0 0;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border: none;
+  padding: 15px 5px;
+  margin: 10px 0;
+  cursor: pointer;
+  position: relative;
+  right: -20px;
+  transition: 0.5s ease;
+}
+
+#loginButton:disabled {
+  color: rgba(255, 255, 255, .75);
+  pointer-events: none;
+}
+
+#loginButton[loading] {
+  color: #fff;
+}
+
+#loginButton:focus,
+#loginButton:hover {
+  text-shadow: 0 0 20px #fff;
+  outline: 0;
+}
+
+#loginButton:active {
+  color: #c7c7c7;
+  text-shadow: 0 0 20px #c7c7c7;
+}
+
+#loginSVG {
+  -webkit-transform: translate3d(0, 0, 0);
+  overflow: visible;
+  transform: rotate(90deg);
+  margin-left: 20px;
+  transition: 0.25s ease;
+  width: 20px;
+  height: 20px;
+}
+
+#loginButton:focus #loginSVG,
+#loginButton:hover #loginSVG {
+  -webkit-filter: drop-shadow(0 0 2px #fff)
+}
+
+#loginButton:active #loginSVG .arrowLine {
+  stroke: #c7c7c7;
+}
+
+#loginButton:active #loginSVG {
+  -webkit-filter: drop-shadow(0 0 2px #c7c7c7)
+}
+
+#loginButton:disabled #loginSVG .arrowLine {
+  stroke: rgba(255, 255, 255, .75);
+}
+
+#loginButtonContent {
+  display: flex;
+  align-items: center;
+}
+
+#loginButton .circle-loader,
+#loginButton[loading] #loginSVG {
+  display: none;
+}
+
+#loginButton #loginSVG,
+#loginButton[loading] .circle-loader {
+  display: initial;
+}
+
+.circle-loader {
+  margin-left: 20px;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-left-color: #fff;
+  animation-name: loader-spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+}
+
+.load-complete {
+  animation: none;
+  border-color: #ffffff;
+  transition: border 500ms ease-out;
+}
+
+.checkmark {
+  display: none;
+}
+
+.checkmark.draw:after {
+  animation-duration: 0.8s;
+  animation-timing-function: ease;
+  animation-name: checkmark;
+  transform: scaleX(-1) rotate(135deg);
+}
+
+.checkmark:after {
+  opacity: 1;
+  height: 8px;
+  width: 4px;
+  transform-origin: left top;
+  border-right: 2px solid #fff;
+  border-top: 2px solid #fff;
+  content: '';
+  left: 2px;
+  top: 8px;
+  position: absolute;
+}
+
+@keyframes loader-spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: 4px;
+    opacity: 1;
+  }
+  40% {
+    height: 8px;
+    width: 4px;
+    opacity: 1;
+  }
+  100% {
+    height: 8px;
+    width: 4px;
+    opacity: 1;
+  }
+}
+
+#loginDisclaimer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#loginRegisterSpan {
+  margin-bottom: 5px;
+}
+
+.loginDisclaimerText {
+  font-size: 9px;
+  color: #717171;
+  font-weight: 700;
+  text-align: center;
+}
+
+#checkmarkContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+}
+
+#checkmarkContainer input {
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+}
+
+.loginCheckmark {
+  position: relative;
+  height: 10px;
+  width: 10px;
+  border: 1px solid #848484;
+  border-radius: 1px;
+  background: 0 0;
+  transition: 0.25s ease;
+}
+
+#checkmarkContainer input:focus ~ *,
+#checkmarkContainer:hover input ~ * {
+  color: #a2a2a2;
+  border-color: #a2a2a2;
+}
+
+#checkmarkContainer input:active ~ :not(#loginRememberText) {
+  color: #8d8d8d;
+  border-color: #8d8d8d;
+}
+
+#checkmarkContainer[disabled] {
+  pointer-events: none;
+}
+
+.loginCheckmark:after {
+  content: "";
+  display: none;
+}
+
+#checkmarkContainer input:checked ~ .loginCheckmark:after {
+  display: block;
+}
+
+#checkmarkContainer .loginCheckmark:after {
+  position: absolute;
+  left: 3.5px;
+  top: 0.5px;
+  width: 2px;
+  height: 6px;
+  border: solid #a2a2a2;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+@keyframes glow-grow {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

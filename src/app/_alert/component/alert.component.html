@@ -1,0 +1,23 @@
+<!--
+<div *ngFor="let alert of alerts" class="{{cssClass(alert)}}">
+  <a class="close" (click)="removeAlert(alert)">&times;</a>
+  <span [innerHTML]="alert.message"></span>
+</div>
+-->
+
+<div class="alert">
+  <div *ngFor="let alert of revert()" [ngClass]="cssClass(alert)" class="box">
+    <div class="iconArea">
+      <i [ngClass]="cssClassIcons(alert)" class="icons-left"></i>
+    </div>
+    <div class="closeArea">
+      <i (click)="removeAlert(alert)" class="fas fa-times-circle close"></i>
+    </div>
+    <div class="copyArea">
+      <div>
+        <strong [innerHTML]="alert.title"></strong><br>
+        <div [innerHTML]="alert.message"></div>
+      </div>
+    </div>
+  </div>
+</div>
