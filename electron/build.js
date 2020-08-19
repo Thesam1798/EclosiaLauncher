@@ -55,9 +55,9 @@ builder.build({
         },
         compression: 'maximum',
         files: [
-            '../dist/**/*',
-            'src/**/*',
-            'index.js'
+            process.env.ELECTRON_BUILDER_DIR + '/dist/**/*',
+            process.env.ELECTRON_BUILDER_DIR + '/electron/src/**/*',
+            process.env.ELECTRON_BUILDER_DIR + '/electron/index.js'
         ],
         extraResources: [
             'libraries'
