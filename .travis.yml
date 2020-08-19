@@ -69,10 +69,10 @@ script:
 
 before_deploy:
   - cd ${TRAVIS_BUILD_DIR}
-  - ls -al
-  - ls output -al
   - git config --local user.name "Thesam1798"
   - git config --local user.email "debris.alex@gmail.com"
+  - ls -al
+  - ls electron -al
 
 deploy:
   provider: releases
