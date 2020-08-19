@@ -71,13 +71,12 @@ before_deploy:
   - cd ${TRAVIS_BUILD_DIR}
   - git config --local user.name "Thesam1798"
   - git config --local user.email "debris.alex@gmail.com"
-  - find / Eclosia-Launcher-setup-0.0.1.exe.blockmap
 
 deploy:
   provider: releases
   token: ${GITHUB_TOKEN}
   file:
-    - ${TRAVIS_BUILD_DIR}/output/**/*
+    - ${TRAVIS_BUILD_DIR}/electron/output/**/*
   overwrite: true
   prerelease: true
   tag_name: ${TRAVIS_BUILD_NUMBER}-${TRAVIS_BUILD_ID}

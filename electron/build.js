@@ -23,13 +23,13 @@ builder.build({
         artifactName: '${productName}-setup-${version}.${ext}',
         copyright: 'Copyright © 2018-2020 Alexandre Debris',
         directories: {
-            buildResources: process.env.ELECTRON_BUILDER_DIR + '/electron/build',
-            output: process.env.ELECTRON_BUILDER_DIR + '/output'
+            buildResources: 'build',
+            output: 'output'
         },
         files: [
-            process.env.ELECTRON_BUILDER_DIR + '/dist/**/*',
-            process.env.ELECTRON_BUILDER_DIR + '/electron/src/**/*',
-            process.env.ELECTRON_BUILDER_DIR + '/electron/index.js'
+            '../dist/**/*',
+            'src/**/*',
+            'index.js'
         ],
         compression: 'maximum',
         asar: true,
