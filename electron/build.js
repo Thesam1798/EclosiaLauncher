@@ -26,23 +26,27 @@ builder.build({
             buildResources: 'build',
             output: process.env.ELECTRON_BUILDER_DIR + '/output'
         },
+        remoteBuild: false,
         win: {
             target: [
                 {
                     target: 'nsis',
                     arch: 'x64'
                 }
-            ]
+            ],
+            publish: ['bintray']
         },
         nsis: {
             oneClick: false,
             perMachine: false,
             allowElevation: true,
-            allowToChangeInstallationDirectory: true
+            allowToChangeInstallationDirectory: true,
+            publish: ['bintray']
         },
         mac: {
             target: 'dmg',
-            category: 'public.app-category.games'
+            category: 'public.app-category.games',
+            publish: ['bintray']
         },
         linux: {
             target: 'AppImage',
@@ -65,6 +69,8 @@ builder.build({
     }
 }).then(() => {
     console.log('Build complete!')
+
+    console.log('Output : ' + process.env.ELECTRON_BUILDER_DIR + '/output')
 }).catch(err => {
     console.error('Error during build!', err)
 })
