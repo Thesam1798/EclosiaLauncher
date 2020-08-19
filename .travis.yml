@@ -71,8 +71,7 @@ before_deploy:
   - cd ${TRAVIS_BUILD_DIR}
   - git config --local user.name "Thesam1798"
   - git config --local user.email "debris.alex@gmail.com"
-  - ls -al
-  - ls electron -al
+  - find / Eclosia-Launcher-setup-0.0.1.exe.blockmap
 
 deploy:
   provider: releases
