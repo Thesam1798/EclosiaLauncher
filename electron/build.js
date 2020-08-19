@@ -34,19 +34,16 @@ builder.build({
                     arch: 'x64'
                 }
             ],
-            publish: ['bintray']
         },
         nsis: {
             oneClick: false,
             perMachine: false,
             allowElevation: true,
-            allowToChangeInstallationDirectory: true,
-            publish: ['bintray']
+            allowToChangeInstallationDirectory: true
         },
         mac: {
             target: 'dmg',
-            category: 'public.app-category.games',
-            publish: ['bintray']
+            category: 'public.app-category.games'
         },
         linux: {
             target: 'AppImage',
