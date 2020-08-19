@@ -13,7 +13,7 @@ matrix:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
         - ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true
-        - ELECTRON_BUILDER_DIR=${PWD}
+        - ELECTRON_BUILDER_DIR=${TRAVIS_BUILD_DIR}
         - CSC_IDENTITY_AUTO_DISCOVERY=false
 
     - os: linux
@@ -22,7 +22,7 @@ matrix:
       node_js: "12"
       env:
         - ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true
-        - ELECTRON_BUILDER_DIR=${PWD}
+        - ELECTRON_BUILDER_DIR=${TRAVIS_BUILD_DIR}
 
 notifications:
   email: false
@@ -42,19 +42,19 @@ cache:
     - electron/node_modules
 
 before_install:
-  - cd ${PWD}/ci && node clean.js ${PWD}
-  - cd ${PWD}
+  - cd ${TRAVIS_BUILD_DIR}/ci && node clean.js ${TRAVIS_BUILD_DIR}
+  - cd ${TRAVIS_BUILD_DIR}
 
 before_script:
-  - cd ${PWD}/angular && npm install yarn && yarn install
+  - cd ${TRAVIS_BUILD_DIR}/angular && npm install yarn && yarn install
   - yarn build-prod
-  - cd ${PWD}/electron && npm install yarn && yarn install
-  - cd ${PWD}
+  - cd ${TRAVIS_BUILD_DIR}/electron && npm install yarn && yarn install
+  - cd ${TRAVIS_BUILD_DIR}
 
 script:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      cd ${PWD}/electron
+      cd ${TRAVIS_BUILD_DIR}/electron
       ENVS=`env | grep -iE '(DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_)' | sed -n '/^[^\t]/s/=.*//p' | sed '/^$/d' | sed 's/^/-e /g' | tr '\n' ' '`
       docker run $ENVS --rm \
         -v ${PWD}:/project \
@@ -63,22 +63,18 @@ script:
         electronuserland/builder:wine \
         /bin/bash -c "node -v && npm install && npm run cilinux"
     else
-      cd ${PWD}/electron
+      cd ${TRAVIS_BUILD_DIR}/electron
       npm run cidarwin
     fi
 
 before_deploy:
-  - cd ${PWD}
   - git config --local user.name "Thesam1798"
   - git config --local user.email "debris.alex@gmail.com"
-  - mv ${PWD}/electron/output ${PWD}/output
-  - cd ${PWD}/ci && node clean.js ${PWD}
-  - cd ${PWD}
 
 deploy:
   provider: releases
   token: ${GITHUB_TOKEN}
-  file: ${PWD}/output/*
+  file: electron/output/*
   overwrite: true
   prerelease: true
   tag_name: ${TRAVIS_BUILD_NUMBER}-${TRAVIS_BUILD_ID}
