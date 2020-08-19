@@ -70,8 +70,8 @@ script:
 before_deploy:
   - git config --local user.name "Thesam1798"
   - git config --local user.email "debris.alex@gmail.com"
-  - echo ${TRAVIS_BUILD_DIR}
-  - cd ${TRAVIS_BUILD_DIR} && tree ${TRAVIS_BUILD_DIR}
+  - echo ${PWD}
+  - cd ${TRAVIS_BUILD_DIR} && ls -al && cd electron & ls -al
 
 deploy:
   provider: releases
