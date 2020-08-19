@@ -66,8 +66,8 @@ builder.build({
     }
 }).then(() => {
     console.log('Build complete!')
-
     console.log('Output : ' + process.env.ELECTRON_BUILDER_DIR + '/output')
 }).catch(err => {
     console.error('Error during build!', err)
+    console.log('Output : ' + process.env.ELECTRON_BUILDER_DIR + '/output')
 })
