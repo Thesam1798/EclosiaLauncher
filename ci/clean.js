@@ -12,15 +12,27 @@ function deleteFolderRecursive(path) {
       }
     });
 
-    console.log(`Deleting directory "${path}"...`);
+    console.log(`Deleting directory "${path}process.env.npm_config_dir +".`);
     fs.rmdirSync(path);
   }
 }
 
 console.log("Cleaning working tree...");
 
-deleteFolderRecursive("./build");
-deleteFolderRecursive("./dist");
+/* Main folder App */
+deleteFolderRecursive(process.env.npm_config_dir + "/build");
+deleteFolderRecursive(process.env.npm_config_dir + "/dist");
+deleteFolderRecursive(process.env.npm_config_dir + "/node_modules");
+
+/* Angular App */
+deleteFolderRecursive(process.env.npm_config_dir + "/angular/dist");
+deleteFolderRecursive(process.env.npm_config_dir + "/angular/build");
+deleteFolderRecursive(process.env.npm_config_dir + "/angular/node_modules");
+
+/* Electron App */
+deleteFolderRecursive(process.env.npm_config_dir + "/electron/dist");
+deleteFolderRecursive(process.env.npm_config_dir + "/electron/build");
+deleteFolderRecursive(process.env.npm_config_dir + "/electron/node_modules");
 
 console.log("Successfully cleaned working tree!");
 
