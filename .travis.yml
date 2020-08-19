@@ -54,12 +54,12 @@ script:
     fi
 
 before_deploy:
-  - cd .. && ls
+  - ls && ls output && cd .. && ls
 
 deploy:
   provider: releases
   api_key: $TOKEN
-  file: "**/*"
+  file: electron/output/*
   overwrite: true
   prerelease: true
   skip_cleanup: true
