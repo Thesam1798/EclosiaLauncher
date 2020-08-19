@@ -54,12 +54,16 @@ script:
     fi
 
 before_deploy:
-  - ls && ls output && cd .. && ls
+  - cp output ../output
+  - ls ${$TRAVIS_BUILD_DIR}
+  - echo ${$TRAVIS_BUILD_DIR}
+  - cd ..
+  - ls
 
 deploy:
   provider: releases
   api_key: $TOKEN
-  file: electron/output/*
+  file: ${$TRAVIS_BUILD_DIR}/output/*
   overwrite: true
   prerelease: true
   skip_cleanup: true
