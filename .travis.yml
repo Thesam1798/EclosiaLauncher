@@ -76,7 +76,7 @@ before_deploy:
 deploy:
   provider: releases
   token: ${GITHUB_TOKEN}
-  file: electron/output/*
+  file: ${TRAVIS_BUILD_DIR}/electron/output/*
   overwrite: true
   prerelease: true
   tag_name: ${TRAVIS_BUILD_NUMBER}-${TRAVIS_BUILD_ID}
