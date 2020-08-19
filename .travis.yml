@@ -70,11 +70,11 @@ script:
 before_deploy:
   - git config --local user.name "Thesam1798"
   - git config --local user.email "debris.alex@gmail.com"
-  - ls ${TRAVIS_BUILD_DIR}/electron/output/ -al
 
 deploy:
   provider: releases
   token: ${GITHUB_TOKEN}
+  file_glob: true
   file: ${TRAVIS_BUILD_DIR}/electron/output/*
   overwrite: true
   prerelease: true
