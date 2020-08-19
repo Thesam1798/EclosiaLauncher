@@ -35,9 +35,9 @@ cache:
     - electron/node_modules
 
 before_script:
-  - cd angular && npm install yarn && yarn install
+  - rm dist -rf && cd angular && npm install yarn && yarn install
   - yarn build-prod
-  - cd ../electron && npm install yarn && yarn install
+  - cd ../electron && rm output -rf && npm install yarn && yarn install
 
 script:
   - |
@@ -54,9 +54,8 @@ script:
     fi
 
 before_deploy:
-  - cp output ../output
-  - ls ${$TRAVIS_BUILD_DIR}
-  - echo ${$TRAVIS_BUILD_DIR}
+  - ls ${TRAVIS_BUILD_DIR}
+  - echo ${TRAVIS_BUILD_DIR}
   - cd ..
   - ls
 
