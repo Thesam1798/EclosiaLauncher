@@ -18,8 +18,7 @@ function deleteFolderRecursive(path) {
 console.log("Cleaning working tree...");
 
 deleteFolderRecursive(process.argv[2] + "/dist");
-deleteFolderRecursive(process.argv[2] + "/output");
-deleteFolderRecursive(process.argv[2] + "/electron/dist");
+deleteFolderRecursive(process.argv[2] + "/electron/output");
 
 console.log("Successfully cleaned working tree!");
 
