@@ -22,7 +22,6 @@ builder.build({
         productName: 'Eclosia Launcher',
         artifactName: '${productName}-setup-${version}.${ext}',
         copyright: 'Copyright © 2018-2020 Alexandre Debris',
-        publish: 'never',
         directories: {
             buildResources: 'build',
             output: process.env.ELECTRON_BUILDER_DIR + '/output'
