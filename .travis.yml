@@ -69,7 +69,7 @@ before_deploy:
 
 deploy:
   provider: releases
-  github_token: ${GITHUB_TOKEN}
+  github_token: $GITHUB_TOKEN
   file: ${TRAVIS_BUILD_DIR}/output/*
   overwrite: true
   prerelease: true
