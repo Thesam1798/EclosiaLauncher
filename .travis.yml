@@ -30,6 +30,7 @@ notifications:
 branches:
   only:
     - /^release\/.*$/
+    - master
 
 git:
   depth: 3
