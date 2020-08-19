@@ -64,16 +64,19 @@ script:
 
 before_deploy:
   - cd ${TRAVIS_BUILD_DIR}
+  - git config --local user.name "Thesam1798"
+  - git config --local user.email "debris.alex@gmail.com"
 
 deploy:
   provider: releases
-  user: ${GITHUB_USERNAME}
-  password: ${GITHUB_PASSWORD}
-  api_key: ${GH_TOKEN}
+  github_token: ${GITHUB_TOKEN}
   file: ${TRAVIS_BUILD_DIR}/output/*
   overwrite: true
   prerelease: true
   skip_cleanup: true
+  tag_name: ${TRAVIS_BUILD_NUMBER}-${TRAVIS_BUILD_ID}
+  name: DRAFT-${TRAVIS_BUILD_NUMBER}-${TRAVIS_BUILD_ID}
+  body: ${TRAVIS_COMMIT_MESSAGE}
   on:
     tags: false
     all_branches: true
