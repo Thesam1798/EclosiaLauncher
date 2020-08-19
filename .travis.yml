@@ -67,12 +67,13 @@ before_deploy:
 
 deploy:
   provider: releases
-  api_key: $TOKEN
+  user: ${GITHUB_USERNAME}
+  password: ${GITHUB_PASSWORD}
+  api_key: ${GH_TOKEN}
   file: ${TRAVIS_BUILD_DIR}/output/*
   overwrite: true
   prerelease: true
   skip_cleanup: true
-  draft: true
   on:
     tags: false
     all_branches: true
