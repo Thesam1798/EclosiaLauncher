@@ -12,7 +12,7 @@ function deleteFolderRecursive(path) {
       }
     });
 
-    console.log(`Deleting directory "${path}process.env.npm_config_dir +".`);
+    console.log(`Deleting directory "${path}process.argv[2] +".`);
     fs.rmdirSync(path);
   }
 }
@@ -20,19 +20,16 @@ function deleteFolderRecursive(path) {
 console.log("Cleaning working tree...");
 
 /* Main folder App */
-deleteFolderRecursive(process.env.npm_config_dir + "/build");
-deleteFolderRecursive(process.env.npm_config_dir + "/dist");
-deleteFolderRecursive(process.env.npm_config_dir + "/node_modules");
+deleteFolderRecursive(process.argv[2] + "/dist");
+deleteFolderRecursive(process.argv[2] + "/output");
+deleteFolderRecursive(process.argv[2] + "/node_modules");
 
 /* Angular App */
-deleteFolderRecursive(process.env.npm_config_dir + "/angular/dist");
-deleteFolderRecursive(process.env.npm_config_dir + "/angular/build");
-deleteFolderRecursive(process.env.npm_config_dir + "/angular/node_modules");
+deleteFolderRecursive(process.argv[2] + "/angular/node_modules");
 
 /* Electron App */
-deleteFolderRecursive(process.env.npm_config_dir + "/electron/dist");
-deleteFolderRecursive(process.env.npm_config_dir + "/electron/build");
-deleteFolderRecursive(process.env.npm_config_dir + "/electron/node_modules");
+deleteFolderRecursive(process.argv[2] + "/electron/dist");
+deleteFolderRecursive(process.argv[2] + "/electron/node_modules");
 
 console.log("Successfully cleaned working tree!");
 

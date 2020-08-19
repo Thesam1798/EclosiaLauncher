@@ -35,8 +35,7 @@ cache:
     - electron/node_modules
 
 before_install:
-  - ls ${TRAVIS_BUILD_DIR} -al
-  - cd ${TRAVIS_BUILD_DIR}/ci && npm --dir=${TRAVIS_BUILD_DIR} clean.js
+  - cd ${TRAVIS_BUILD_DIR}/ci && node clean.js ${TRAVIS_BUILD_DIR}
 
 before_script:
   - cd ${TRAVIS_BUILD_DIR}/angular && npm install yarn && yarn install
