@@ -11,8 +11,6 @@ function deleteFolderRecursive(path) {
         fs.unlinkSync(curPath);
       }
     });
-
-    console.log(`Deleting directory "${path}process.argv[2] +".`);
     fs.rmdirSync(path);
   }
 }

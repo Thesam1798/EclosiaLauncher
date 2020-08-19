@@ -36,11 +36,13 @@ cache:
 
 before_install:
   - cd ${TRAVIS_BUILD_DIR}/ci && node clean.js ${TRAVIS_BUILD_DIR}
+  - cd ${TRAVIS_BUILD_DIR}
 
 before_script:
   - cd ${TRAVIS_BUILD_DIR}/angular && npm install yarn && yarn install
   - yarn build-prod
   - cd ${TRAVIS_BUILD_DIR}/electron && npm install yarn && yarn install
+  - cd ${TRAVIS_BUILD_DIR}
 
 script:
   - |
@@ -53,14 +55,11 @@ script:
         electronuserland/builder:wine \
         /bin/bash -c "node -v && npm ci && npm --dir=${TRAVIS_BUILD_DIR} run cilinux"
     else
-      npm run cidarwin
+      npm --dir=${TRAVIS_BUILD_DIR} run cidarwin
     fi
 
 before_deploy:
-  - ls ${TRAVIS_BUILD_DIR}
-  - echo ${TRAVIS_BUILD_DIR}
-  - cd ..
-  - ls
+  - cd ${TRAVIS_BUILD_DIR}
 
 deploy:
   provider: releases
