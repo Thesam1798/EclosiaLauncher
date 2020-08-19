@@ -24,7 +24,7 @@ builder.build({
         copyright: 'Copyright © 2018-2020 Alexandre Debris',
         directories: {
             buildResources: 'build',
-            output: process.env.npm_config_dir + '/output'
+            output: process.env.ELECTRON_BUILDER_DIR + '/output'
         },
         win: {
             target: [
