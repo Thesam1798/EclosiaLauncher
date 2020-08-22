@@ -6,5 +6,6 @@ export default class version {
 }
 
 export class file {
-
+  name: string | undefined
+  browser_download_url: string | undefined
 }

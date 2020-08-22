@@ -4,7 +4,6 @@ const {Octokit} = require("@octokit/core");
 const logManager = require('./logManager')
 
 const octokit = new Octokit({
-    auth: "97579efe55d9dd8009487c587aaabd17fc2c49d7",
     baseUrl: "https://api.github.com",
 });
 
