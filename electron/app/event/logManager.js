@@ -4,7 +4,7 @@ module.exports = {
 
     prefix: function (scope = "unknown", type = "Log") {
         const time = moment().format('HH:mm:ss')
-        const max = 70
+        const max = 75
 
         if (scope.length < (max - 2)) {
             const length = ((max - 2) - scope.length);

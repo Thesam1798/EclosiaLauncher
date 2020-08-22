@@ -4,13 +4,15 @@ const fs = require('fs')
 const path = require('path')
 
 const logManager = require('./logManager')
-const appmanager = require('./appmanager')
+const appManager = require('./appManager')
+const updateManager = require('./updateManager')
 
 module.exports = {
 
     load: function (win) {
 
-        appmanager.load(win)
+        appManager.load(win)
+        updateManager.load(win)
 
         ipcMain.on('isDebug', (event, arg) => {
             logManager.log("Event | isDebug : " + this.isDev(), __filename)

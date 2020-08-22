@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IpcRenderer} from "electron";
+import version from "./obejct/version";
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,23 @@ export class AppService {
         resolve(arg);
       });
       this.ipc.send("isDebug");
+    });
+  }
+
+  async getLastVersion() {
+    return new Promise<version>((resolve, reject) => {
+      if (typeof this.ipc === "undefined") {
+        reject(false);
+        return;
+      }
+      this.ipc.once("getLastVersionReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
+        if (typeof arg === "string") {
+          resolve(JSON.parse(arg))
+        } else {
+          reject(arg)
+        }
+      });
+      this.ipc.send("getLastVersion", {prerelease: true});
     });
   }
 

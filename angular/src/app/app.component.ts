@@ -9,6 +9,8 @@ import data from "./service/obejct/data";
 })
 export class AppComponent {
   public static data: data
+  public static upgrade: boolean
+  public static autoUpdate: boolean
   title: string | undefined = 'angular-electron';
 
   constructor(private app: AppService) {
@@ -21,6 +23,12 @@ export class AppComponent {
       AppComponent.data = responce;
 
       this.title = AppComponent.data.title;
+    })
+
+    app.getLastVersion().then(response => {
+      console.log(response)
+      AppComponent.upgrade = response.upgrade === true;
+      AppComponent.autoUpdate = response.version === 'win32'
     })
   }
 }

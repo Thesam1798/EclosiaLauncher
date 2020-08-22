@@ -43,7 +43,7 @@ try {
         } else {
             win.loadURL(`file://${app.getAppPath()}/src/index.html`).then(() => {
                 logManager.log("Fichier index load !", __filename)
-                //win.webContents.openDevTools()
+                win.webContents.openDevTools()
             }).catch(ex => {
                 logManager.error(ex, __filename)
             })
