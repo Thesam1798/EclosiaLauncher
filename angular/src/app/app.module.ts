@@ -8,22 +8,28 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {AlertComponent} from "./_alert/component/alert.component";
 import {ServerComponent} from './pages/server/server.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {HomeComponent} from "./_login/component/home.component";
+import {LoaderComponent} from './_login/content/loader/loader.component';
+import {CheckboxComponent} from './_login/content/checkbox/checkbox.component';
+import {SelectGameComponent} from './_login/component/select-game/select-game.component';
+import {LoginComponent} from "./_login/component/login/login.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent,
+    LoginComponent,
     AlertComponent,
     AlertComponent,
-    ServerComponent
+    ServerComponent,
+    LoaderComponent,
+    CheckboxComponent,
+    SelectGameComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

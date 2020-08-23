@@ -1,5 +1,36 @@
 const {app, BrowserWindow, dialog} = require('electron')
+const {autoUpdater} = require('electron-updater')
 const path = require('path')
+
+autoUpdater.logger = require('electron-log')
+autoUpdater.logger.transports.file.level = 'info';
+
+autoUpdater.on('checking-for-update', () => {
+    console.log('Checking for update...')
+});
+
+autoUpdater.on('update-available', (info) => {
+    console.log('Update available')
+    console.log('Version : ' + info.version)
+    console.log('Release date : ' + info.releaseDate)
+});
+
+autoUpdater.on('update-not-available', () => {
+    console.log('Update not available')
+});
+
+autoUpdater.on('download-progress', (progress) => {
+    console.log('Progress ' + Math.floor(progress.percent))
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+    console.log('Update downloaded')
+    autoUpdater.quitAndInstall()
+});
+
+autoUpdater.on('error', (error) => {
+    console.error(error)
+});
 
 try {
     const eventmanager = require(path.join(app.getAppPath(), 'app', 'event', 'eventManager'))
@@ -8,6 +39,11 @@ try {
     let win;
 
     function createWindow() {
+
+        autoUpdater.allowPrerelease = true
+        autoUpdater.checkForUpdates().then(r => {
+            console.log(r)
+        })
 
         // Create the browser window.
         win = new BrowserWindow({

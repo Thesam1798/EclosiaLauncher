@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {IpcRenderer} from "electron";
 import version from "./obejct/version";
+import data from "./obejct/data";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import version from "./obejct/version";
 export class AppService {
   public static dev: boolean;
 
-  private ipc: IpcRenderer | undefined
+  private readonly ipc: IpcRenderer | undefined
 
   constructor() {
     if ((<any>window).require) {
@@ -94,12 +95,12 @@ export class AppService {
   }
 
   async getData() {
-    return new Promise<string>((resolve, reject) => {
+    return new Promise<data>((resolve, reject) => {
       if (typeof this.ipc === "undefined") {
         reject(false);
         return;
       }
-      this.ipc.once("getDataReturn", (event: any, arg: string | PromiseLike<string> | undefined) => {
+      this.ipc.once("getDataReturn", (event: any, arg: data | PromiseLike<data> | undefined) => {
         resolve(arg);
       });
       this.ipc.send("getData");
