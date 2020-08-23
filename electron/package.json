@@ -3,7 +3,7 @@
   "description": "Launcher for Eclosia",
   "author": "Alexandre Debris <alexandre@debris.ovh>",
   "productName": "Eclosia Launcher",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "license": "UNLICENSED",
   "private": true,
