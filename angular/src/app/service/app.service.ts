@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {IpcRenderer} from "electron";
-import version from "./obejct/version";
-import data from "./obejct/data";
+import version from "./object/version";
+import data from "./object/data";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import data from "./obejct/data";
 export class AppService {
   public static dev: boolean;
 
-  private readonly ipc: IpcRenderer | undefined
+  private readonly ipc: IpcRenderer | undefined;
 
   constructor() {
     if ((<any>window).require) {

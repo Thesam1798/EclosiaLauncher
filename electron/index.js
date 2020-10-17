@@ -41,13 +41,11 @@ try {
     function createWindow() {
 
         autoUpdater.allowPrerelease = true
-        autoUpdater.checkForUpdates().then(r => {
-            console.log(r)
-        })
+        autoUpdater.checkForUpdates().then()
 
         // Create the browser window.
         win = new BrowserWindow({
-            width: 980,
+            width: 1080,
             height: 552,
             minWidth: 980,
             minHeight: 552,

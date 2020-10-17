@@ -1,6 +1,6 @@
 /* Frame Bar */
 #frameBar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -54,8 +54,10 @@
 }
 
 #frameTitleText {
+  position: relative;
+  top: -2px;
+  text-transform: uppercase;
   font-size: 14px;
-  font-family: 'Avenir Medium';
   letter-spacing: 0.5px;
 }
 
@@ -83,11 +85,15 @@
 
 /* Windows Frame Button Styles. */
 .frameButton {
+  position: relative;
+  top: -2px;
   background: none;
   border: none;
   height: 22px;
   width: 39px;
   cursor: pointer;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .frameButton:hover,
