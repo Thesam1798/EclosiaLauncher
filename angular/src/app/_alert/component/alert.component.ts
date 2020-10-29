@@ -50,7 +50,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
         // auto close alert if required
         if (alert.autoClose && alert.type !== AlertType.Error) {
-          setTimeout(() => this.removeAlert(alert), 3000);
+          setTimeout(() => this.removeAlert(alert, false), 3000);
         }
       });
 
@@ -73,11 +73,11 @@ export class AlertComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeAlert(alert: Alert): void {
+  removeAlert(alert: Alert, click: Boolean): void {
     // check if already removed to prevent error on auto close
     if (!this.alerts.includes(alert)) return;
 
-    if (this.fade && alert.autoClose && alert.type !== AlertType.Error) {
+    if (!click && this.fade && alert.autoClose && alert.type !== AlertType.Error) {
       // fade out alert
       let find = this.alerts.find(x => x === alert);
       if (find === null || typeof find === "undefined") return;

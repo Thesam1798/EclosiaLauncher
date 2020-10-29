@@ -1,3 +1,9 @@
-<app-header title="Éclosia"></app-header>
-<app-alert></app-alert>
-<router-outlet></router-outlet>
+<div [class]="{'fade-in': appReady, 'show': appReady, 'hide': !appReady}">
+  <app-header [build]="appBuildDate" [title]="appName" [version]="appVersion"></app-header>
+  <app-alert></app-alert>
+  <router-outlet></router-outlet>
+</div>
+
+<div [class]="{'fade-out': appReady, 'show': !appReady, 'hide': hideLoader}">
+  <app-loader [hidden]="hideLoader"></app-loader>
+</div>

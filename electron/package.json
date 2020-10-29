@@ -3,7 +3,7 @@
   "description": "Launcher for Eclosia",
   "author": "Alexandre Debris <alexandre@debris.ovh>",
   "productName": "Eclosia-Launcher",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "index.js",
   "license": "UNLICENSED",
   "private": true,
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thesam1798/EclosiaLauncher.git"
+    "url": "git+https://github.com/Thesam1798/EclosiaLauncher.git"
   },
   "engines": {
     "node": "12.x.x"
@@ -39,7 +39,8 @@
     "request": "2.88.2",
     "semver": "7.3.2",
     "tar-fs": "2.1.0",
-    "winreg": "1.2.4"
+    "winreg": "1.2.4",
+    "js-yaml": "3.14.0"
   },
   "devDependencies": {
     "cross-env": "7.0.2",

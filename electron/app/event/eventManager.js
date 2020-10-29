@@ -1,6 +1,7 @@
-const {app, ipcMain} = require("electron");
-const yaml = require('js-yaml')
-const fs = require('fs')
+const {ipcMain} = require("electron");
+const {autoUpdater} = require('electron-updater')
+
+const semver = require('semver')
 const path = require('path')
 
 const logManager = require('./logManager')
@@ -12,15 +13,42 @@ module.exports = {
 
         appManager.load(win)
 
-        ipcMain.on('isDebug', (event, arg) => {
-            logManager.log("Event | isDebug : " + this.isDev(), __filename)
-            win.webContents.send('isDebugReturn', this.isDev())
+        ipcMain.on('getAppName', (event, arg) => {
+            logManager.log("Event | getAppName : " + (require(path.join(__dirname, '../..', 'package.json')).productName).split('-')[0], __filename)
+            win.webContents.send('getAppNameReturn', (require(path.join(__dirname, '../..', 'package.json')).productName).split('-')[0])
         })
-    },
 
-    isDev: function () {
-        let fileContents = fs.readFileSync(path.join(app.getAppPath(), 'app', 'data', 'data.yaml'), 'utf8');
-        let data = yaml.safeLoad(fileContents)
-        return data.dev;
+        autoUpdater.checkForUpdates().then(r => {
+
+            const last = r.updateInfo.releaseName
+            const curent = autoUpdater.currentVersion.version
+            let fullDate = r.updateInfo.releaseDate
+
+            fullDate = fullDate.replace('T', ' ')
+            fullDate = fullDate.replace('Z', ' ')
+            fullDate = fullDate.split('.')[0]
+
+            let date = fullDate.split(' ')[0]
+            let time = fullDate.split(' ')[1]
+
+            date = date.split('-')[2] + '-' + date.split('-')[1] + '-' + date.split('-')[0]
+
+            fullDate = date + ' ' + time
+
+            let update = semver.gt(last, curent)
+            let past = semver.lt(last, curent)
+
+            ipcMain.on('getLastVersion', (event, arg) => {
+                logManager.log("Event | getLastVersion : " + last, __filename)
+                win.webContents.send('getLastVersionReturn', last)
+            })
+
+            ipcMain.on('getBuildDate', (event, arg) => {
+                logManager.log("Event | getBuildDate : " + fullDate, __filename)
+                win.webContents.send('getBuildDateReturn', fullDate)
+            })
+        })
+
+        logManager.log("All event loaded", __filename)
     }
 };

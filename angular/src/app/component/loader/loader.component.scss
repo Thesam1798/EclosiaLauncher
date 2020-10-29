@@ -1,0 +1,73 @@
+$color: #E9523C;
+$size: 12px;
+$time: 1;
+
+main {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  height: 100%;
+  width: 100%;
+
+  justify-content: center;
+  align-items: center;
+  background: #090707;
+}
+
+.dank-ass-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: fixed;
+  top: calc(50% - (90px / 2));
+  left: calc(50% - (90px / 2));
+  min-height: 90px;
+  min-width: 90px;
+
+  .row {
+    display: flex;
+  }
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  margin: 0 (-$size / 2);
+  border-left: $size solid transparent;
+  border-right: $size solid transparent;
+  border-bottom: ($size * 1.8) solid $color;
+  animation: blink $time + s infinite;
+  filter: drop-shadow(0 0 ($size * 1.5) $color);
+
+  &.down {
+    transform: rotate(180deg);
+  }
+
+  @for $i from 1 through 18 {
+    &.outer-#{$i} {
+      animation-delay: -($time / 18) * $i + s;
+    }
+  }
+
+  @for $i from 1 through 6 {
+    &.inner-#{$i} {
+      animation-delay: -($time / 6) * $i + s;
+    }
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}

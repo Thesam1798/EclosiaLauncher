@@ -9,6 +9,8 @@ import {AppService} from "../../service/app.service";
 export class HeaderComponent {
 
   @Input('title') title: string | undefined;
+  @Input('version') version: string | undefined;
+  @Input('build') build: string | undefined;
 
   constructor(private app: AppService) {
   }

@@ -8,13 +8,15 @@ import {HeaderComponent} from './component/header/header.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AlertComponent} from "./_alert/component/alert.component";
+import {LoaderComponent} from './component/loader/loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HeaderComponent,
-    AlertComponent
+    AlertComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
