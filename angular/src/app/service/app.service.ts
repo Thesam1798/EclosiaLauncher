@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {IpcRenderer} from "electron";
-import version from "./obejct/version";
-import data from "./obejct/data";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +7,7 @@ import data from "./obejct/data";
 export class AppService {
   public static dev: boolean;
 
-  private readonly ipc: IpcRenderer | undefined
+  private readonly ipc: IpcRenderer | undefined;
 
   constructor() {
     if ((<any>window).require) {
@@ -64,46 +62,20 @@ export class AppService {
     });
   }
 
-  async isDev() {
-    return new Promise<boolean>((resolve, reject) => {
-      if (typeof this.ipc === "undefined") {
-        reject(false);
-        return;
-      }
-      this.ipc.once("isDebugReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
-        resolve(arg);
-      });
-      this.ipc.send("isDebug");
-    });
-  }
-
   async getLastVersion() {
-    return new Promise<version>((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
       if (typeof this.ipc === "undefined") {
         reject(false);
         return;
       }
       this.ipc.once("getLastVersionReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
         if (typeof arg === "string") {
-          resolve(JSON.parse(arg))
+          resolve(arg);
         } else {
-          reject(arg)
+          reject(arg);
         }
       });
       this.ipc.send("getLastVersion", {prerelease: true});
-    });
-  }
-
-  async getData() {
-    return new Promise<data>((resolve, reject) => {
-      if (typeof this.ipc === "undefined") {
-        reject(false);
-        return;
-      }
-      this.ipc.once("getDataReturn", (event: any, arg: data | PromiseLike<data> | undefined) => {
-        resolve(arg);
-      });
-      this.ipc.send("getData");
     });
   }
 
@@ -117,6 +89,40 @@ export class AppService {
         resolve(arg);
       });
       this.ipc.send("openLink", url);
+    });
+  }
+
+  async getBuildDate() {
+    return new Promise<string>((resolve, reject) => {
+      if (typeof this.ipc === "undefined") {
+        reject(false);
+        return;
+      }
+      this.ipc.once("getBuildDateReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
+        if (typeof arg === "string") {
+          resolve(arg);
+        } else {
+          reject(arg);
+        }
+      });
+      this.ipc.send("getBuildDate", {prerelease: true});
+    });
+  }
+
+  async getAppName() {
+    return new Promise<string>((resolve, reject) => {
+      if (typeof this.ipc === "undefined") {
+        reject(false);
+        return;
+      }
+      this.ipc.once("getAppNameReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
+        if (typeof arg === "string") {
+          resolve(arg);
+        } else {
+          reject(arg);
+        }
+      });
+      this.ipc.send("getAppName", {prerelease: true});
     });
   }
 }

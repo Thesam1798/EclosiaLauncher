@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {AppService} from "../../service/app.service";
 
 @Component({
@@ -6,34 +6,26 @@ import {AppService} from "../../service/app.service";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Input('title') title: string | undefined;
+  @Input('version') version: string | undefined;
+  @Input('build') build: string | undefined;
 
   constructor(private app: AppService) {
   }
 
-  ngOnInit(): void {
-  }
-
   closeApp() {
-    console.log("Close App !")
+    console.log("Close App !");
     this.app.closeApp().then(() => {
       window.close();
     });
   }
 
   miniApp() {
-    console.log("Minimize App")
+    console.log("Minimize App");
     this.app.minApp().then(() => {
-      console.log("Done")
-    });
-  }
-
-  maxiApp() {
-    console.log("Minimize App")
-    this.app.maxApp().then(() => {
-      console.log("Done")
+      console.log("Done");
     });
   }
 }

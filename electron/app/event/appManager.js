@@ -4,24 +4,29 @@ const logmanager = require('./logManager')
 const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
+const updateManager = require(path.join('../', 'script', 'updateManager'))
 
 module.exports = {
 
     load: function (win) {
-        console.log("App Manager : Loaded !")
 
         ipcMain.on('closeEvent', (event, arg) => {
             logmanager.log("Quit Launcher", __filename)
+            updateManager.install()
             win.webContents.send('closeEventReturn', true)
             win.close()
-            app.quit();
+            app.quit()
         })
+
+        logmanager.log("closeEvent loaded", __filename)
 
         ipcMain.on('minEvent', (event, arg) => {
             logmanager.log("Minimize Launcher", __filename)
             win.minimize()
             win.webContents.send('minEventReturn', true)
         })
+
+        logmanager.log("minEvent loaded", __filename)
 
         ipcMain.on('getData', (event, arg) => {
             logmanager.log("Demande des information du launcher", __filename)
@@ -31,6 +36,8 @@ module.exports = {
             win.webContents.send('getDataReturn', data)
         })
 
+        logmanager.log("getData loaded", __filename)
+
         ipcMain.on('openLink', (event, arg) => {
             logmanager.log("Demande d'ouverture d'une url : " + arg, __filename)
             shell.openExternal(arg)
@@ -39,7 +46,8 @@ module.exports = {
                     logmanager.error(ex, __filename)
                     win.webContents.send('openLinkReturn', false)
                 })
-
         })
+
+        logmanager.log("openLink loaded", __filename)
     }
 };

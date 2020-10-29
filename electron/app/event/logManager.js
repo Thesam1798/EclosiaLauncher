@@ -1,4 +1,9 @@
 const moment = require('moment')
+const fs = require('fs');
+const path = require('path')
+const folder = path.join(process.env.LOCALAPPDATA, require(path.join(__dirname, '../..', 'package.json')).productName)
+
+print("------------------------------------------------------------------------------------------------------------------------------------------------------", false)
 
 module.exports = {
 
@@ -10,29 +15,55 @@ module.exports = {
             const length = ((max - 2) - scope.length);
 
             for (let i = 0; i < length; i++) {
-                scope = scope + " ";
+                scope = scope + " "
             }
         }
 
-        return " [" + time + "] [" + scope + "] [" + type + "] : "
+        return "[" + time + "] [" + scope + "] [" + type + "] : "
     },
 
     log: function (data, scope = "unknown") {
-        console.log(this.prefix(scope, "DEBUG") + data);
+        print(this.prefix(scope, "DEBUG") + data, false)
     },
 
     error: function (data, scope = "unknown") {
-        const prefix = this.prefix(scope, "ERROR");
-        const length = data.length + prefix.length;
+        const prefix = this.prefix(scope, "ERROR")
+        const length = data.length + prefix.length
 
-        let separator = "";
+        let separator = ""
 
         for (let i = 0; i < length; i++) {
-            separator = separator + "-";
+            separator = separator + "-"
         }
 
-        console.error(separator);
-        console.error(prefix + data);
-        console.error(separator);
+        print(separator, true)
+        print(prefix + data, true)
+        print(separator, true)
+    }
+}
+
+function print(string, error) {
+
+    try {
+
+        if (!fs.existsSync(path.join(folder))) {
+            fs.mkdirSync(path.join(folder))
+        }
+
+        if (!fs.existsSync(path.join(folder, 'logs'))) {
+            fs.mkdirSync(path.join(folder, 'logs'))
+        }
+
+        fs.appendFile(path.join(folder, 'logs', moment().format('D_M_YYYY') + '.txt'), string + '\n', function (err) {
+            if (err) console.log(err)
+        });
+    } catch (e) {
+        console.error(e)
+    }
+
+    if (error) {
+        console.error(string)
+    } else {
+        console.log(string)
     }
 }

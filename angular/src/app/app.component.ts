@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
 import {AppService} from "./service/app.service";
-import data from "./service/obejct/data";
-import {AlertService} from "./_alert/service/alert.service";
-import {GamesService} from "./_login/service/games.service";
 
 @Component({
   selector: 'app-root',
@@ -10,60 +7,35 @@ import {GamesService} from "./_login/service/games.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public static data: data
-  public static upgrade: boolean
-  public static autoUpdate: boolean
-  title: string | undefined = '!! ERROR !!';
-  private readonly bg: number;
+  appName: any;
+  appVersion: any;
+  appBuildDate: any;
+  appReady: boolean = false;
+  hideLoader: boolean = false;
 
-  constructor(
-    private app: AppService,
-    private alert: AlertService
-  ) {
-    app.isDev().then(responce => {
-      AppService.dev = responce;
-    })
+  constructor(appService: AppService) {
+    setTimeout(() => {
+      appService.getAppName().then((name) => {
+        this.appName = name;
 
-    app.getData().then(responce => {
-      AppComponent.data = responce;
-      this.title = AppComponent.data.title;
-    })
+        appService.getLastVersion().then((version) => {
+          this.appVersion = version;
 
-    app.getLastVersion().then(response => {
-      AppComponent.upgrade = response.upgrade === true;
-      AppComponent.autoUpdate = response.version === 'win32'
+          appService.getBuildDate().then((formatDate) => {
+            this.appBuildDate = formatDate;
 
-      if (AppComponent.upgrade) {
-        this.alert.info('Mise a jours', 'La version ' + response.version + ' est disponibles !', true, false)
-      }
-
-    })
-
-    let item = localStorage.getItem('bg');
-    this.bg = 0;
-
-    if (item !== null) {
-      this.bg = parseInt(item) + 1
-      if (this.bg > 7) this.bg = 0;
-      localStorage.setItem('bg', this.bg + '')
-    } else {
-      this.bg = 0
-      if (this.bg > 7) this.bg = 0;
-      localStorage.setItem('bg', this.bg + '')
-    }
+            this.appReady = true;
+            setTimeout(() => this.hideLoader = true, 1900);
+          }).catch((ex) => {
+            console.error(ex);
+          });
+        }).catch((ex) => {
+          console.error(ex);
+        });
+      }).catch((ex) => {
+        console.error(ex);
+      });
+    }, 2200);
   }
 
-  style(): string {
-    let retour = "background-repeat: no-repeat; background-position: center; background-size: cover; transition: background-image 0.5s linear; ";
-
-    if (GamesService.gameSelected().length > 0) {
-
-      retour = retour + "background-image: url('assets/images/backgrounds/" + GamesService.gameSelected()[0].dir + "/" + this.bg + ".jpg');";
-
-    } else {
-      retour = retour + "background-image: url('assets/images/backgrounds/0.jpg');";
-    }
-
-    return retour;
-  }
 }
