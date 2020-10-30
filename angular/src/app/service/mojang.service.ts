@@ -27,8 +27,8 @@ export class MojangService {
     // Node error => err.code | err.message
     if (err.cause != null && err.cause === 'UserMigratedException') {
       return {
-        title: 'Error During Login: Invalid Credentials',
-        desc: 'You\'ve attempted to login with a migrated account. Try again using the account email as the username.'
+        title: 'Erreur lors de la connexion : Références non valides',
+        desc: 'Vous avez tenté de vous connecter avec un compte migré. Essayez à nouveau en utilisant l\'adresse électronique du compte comme nom d\'utilisateur.'
       };
     } else {
       if (err.error != null) {
@@ -36,13 +36,13 @@ export class MojangService {
           if (err.errorMessage != null) {
             if (err.errorMessage === 'Invalid credentials. Invalid username or password.') {
               return {
-                title: 'Error During Login: Invalid Credentials',
-                desc: 'The email or password you\'ve entered is incorrect. Please try again.'
+                title: 'Erreur lors de la connexion : Références non valides',
+                desc: 'L\'adresse électronique ou le mot de passe que vous avez saisi est incorrect. Veuillez réessayer.'
               };
             } else if (err.errorMessage === 'Invalid credentials.') {
               return {
-                title: 'Error During Login: Too Many Attempts',
-                desc: 'There have been too many login attempts with this account recently. Please try again later.'
+                title: 'Erreur lors de la connexion : Trop de tentatives',
+                desc: 'Il y a eu trop de tentatives de connexion avec ce compte récemment. Veuillez réessayer plus tard.'
               };
             }
           }
@@ -53,14 +53,14 @@ export class MojangService {
           if (err.code === 'ENOENT') {
             // No Internet.
             return {
-              title: 'Error During Login: No Internet Connection',
-              desc: 'You must be connected to the internet in order to login. Please connect and try again.'
+              title: 'Erreur lors de la connexion : Pas de connexion Internet',
+              desc: 'Vous devez être connecté à Internet pour pouvoir vous connecter. Veuillez vous connecter et réessayer.'
             };
           } else if (err.code === 'ENOTFOUND') {
             // Could not reach server.
             return {
-              title: 'Error During Login: Authentication Server Offline',
-              desc: 'Mojang\'s authentication server is currently offline or unreachable. Please wait a bit and try again. You can check the status of the server on <a href=\"https://help.mojang.com/\">Mojang\'s help portal</a>.'
+              title: 'Erreur lors de la connexion : Serveur d\'authentification hors ligne',
+              desc: 'Le serveur d\'authentification de Mojang est actuellement hors ligne ou inaccessible. Veuillez patienter un peu et réessayer. Vous pouvez vérifier l\'état du serveur sur le portail d\'aide de Mojang.'
             };
           }
         }
@@ -69,13 +69,13 @@ export class MojangService {
     if (err.message != null) {
       if (err.message === 'NotPaidAccount') {
         return {
-          title: 'Error During Login: Game Not Purchased',
-          desc: 'The account you are trying to login with has not purchased a copy of Minecraft.<br>You may purchase a copy on <a href=\"https://minecraft.net/\">Minecraft.net</a>'
+          title: 'Erreur lors de la connexion : Jeu non acheté',
+          desc: 'Le compte avec lequel vous essayez de vous connecter n\'a pas acheté une copie de Minecraft.<br>Vous pouvez acheter une copie sur Minecraft.net'
         };
       } else {
         // Unknown error with request.
         return {
-          title: 'Error During Login: Unknown Error',
+          title: 'Erreur lors de la connexion : Erreur inconnue',
           desc: err.message
         };
       }
