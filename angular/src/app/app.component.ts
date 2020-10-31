@@ -15,7 +15,6 @@ export class AppComponent {
   appBuildDate: any;
   appReady: boolean = false;
   hideLoader: boolean = false;
-  private idAlert: string | undefined;
 
   constructor(private appService: AppService, private connectionService: ConnectionService, private alert: AlertService) {
 
@@ -36,7 +35,7 @@ export class AppComponent {
         setTimeout(() => {
           this.hideLoader = true;
         }, 1900);
-      }, 0);
+      }, 2500);
     } else {
       setTimeout(() => {
         console.log("Call Event");
@@ -54,7 +53,7 @@ export class AppComponent {
   private getName() {
     this.appService.getAppName().then((name) => {
       this.appName = name;
-      this.showLogin();
+      this.showApp();
     }).catch((ex) => {
       console.error(ex);
       setTimeout(() => this.getName(), 500);
@@ -64,7 +63,7 @@ export class AppComponent {
   private getVersion() {
     this.appService.getLastVersion().then((version) => {
       this.appVersion = version;
-      this.showLogin();
+      this.showApp();
     }).catch((ex) => {
       console.error(ex);
       setTimeout(() => this.getVersion(), 500);
@@ -74,14 +73,14 @@ export class AppComponent {
   private getBuild() {
     this.appService.getBuildDate().then((formatDate) => {
       this.appBuildDate = formatDate;
-      this.showLogin();
+      this.showApp();
     }).catch((ex) => {
       console.error(ex);
       setTimeout(() => this.getBuild(), 500);
     });
   }
 
-  private showLogin() {
+  private showApp() {
     if (this.appVersion !== null && typeof this.appVersion === "string" && this.appVersion.length > 0) {
       if (this.appBuildDate !== null && typeof this.appBuildDate === "string" && this.appBuildDate.length > 0) {
         if (this.appName !== null && typeof this.appName === "string" && this.appName.length > 0) {

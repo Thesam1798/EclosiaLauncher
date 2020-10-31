@@ -28,4 +28,8 @@ export class HeaderComponent {
       console.log("Done");
     });
   }
+
+  showName(): boolean {
+    return this.title !== undefined && this.build !== undefined && this.version !== undefined;
+  }
 }

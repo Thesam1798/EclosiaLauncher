@@ -67,7 +67,6 @@ export class AlertService {
   alert(alert: Alert): Alert {
     alert.id = alert.id || this.defaultId;
     this.subject.next(alert);
-    console.log("New Alert : " + alert.title + " " + alert.type);
     return alert;
   }
 

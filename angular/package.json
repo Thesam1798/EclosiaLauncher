@@ -3,7 +3,7 @@
   "description": "Launcher for Eclosia",
   "author": "Alexandre Debris <alexandre@debris.ovh>",
   "productName": "Eclosia-Launcher",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
     "start": "ng serve",
     "build-prod": "ng build --buildOptimizer=true --prod --outputHashing=all --sourceMap=true",

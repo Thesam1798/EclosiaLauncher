@@ -9,7 +9,6 @@ export interface UserData {
 export interface user {
   username: string | undefined | null
   id: string | undefined | null
-  autologin: boolean | undefined | null
 }
 
 export interface selectedProfile {
