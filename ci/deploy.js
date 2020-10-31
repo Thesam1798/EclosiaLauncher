@@ -8,10 +8,12 @@ function listFolderRecursive(path) {
       if (fs.lstatSync(curPath).isDirectory()) { // recurse
         listFolderRecursive(curPath);
       } else { // delete file
-        console.log(curPath)
+        console.log(curPath + "....")
       }
     });
-    console.log(path)
+    console.log(path + "....")
+  } else {
+    console.log("Not exist : " + path)
   }
 }
 
