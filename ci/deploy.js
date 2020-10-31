@@ -7,7 +7,7 @@ function listFolderRecursive(path) {
 
       if (fs.lstatSync(curPath).isDirectory()) { // recurse
         listFolderRecursive(curPath);
-      } else { // delete file
+      } else {
         console.log(curPath + "....")
       }
     });
@@ -19,6 +19,6 @@ function listFolderRecursive(path) {
 
 console.log("List dist folder...");
 
-listFolderRecursive(process.argv[2] + "/dist");
+listFolderRecursive(process.argv[2] + "/electron/output");
 
 console.log("Successfully list dist folder!");
