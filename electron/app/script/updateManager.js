@@ -1,8 +1,7 @@
 const {autoUpdater} = require('electron-updater')
 
 const semver = require('semver')
-const path = require('path')
-const logManager = require(path.join('../', 'event', 'logManager'))
+const logManager = require('./logManager')
 
 let update = false
 

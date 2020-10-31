@@ -7,6 +7,7 @@ export class Alert {
   keepAfterRouteChange: boolean | undefined;
   fade: boolean | undefined;
   fadeAction: boolean | undefined;
+  noClose: boolean | undefined;
 
   constructor(init?: Partial<Alert>) {
     Object.assign(this, init);

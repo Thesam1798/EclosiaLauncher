@@ -398,7 +398,7 @@ bluebird-lst@^1.0.9:
   dependencies:
     bluebird "^3.5.5"
 
-bluebird@^3.5.5:
+bluebird@^3.5.5, bluebird@^3.7.1:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
@@ -528,6 +528,13 @@ chalk@^4.0.0, chalk@^4.1.0:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+check-internet-connected@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/check-internet-connected/-/check-internet-connected-2.0.5.tgz#e872b4e65365f875cc9ed5194c18f31137f79f95"
+  integrity sha512-bvS2SCWQGdwWqRS/hlzBKign6AjxZQtBGop/UnFAsBZoDZwSWjoJfcU5MvY+uxtWL3rVOxFIoszugaNz0C5mNg==
+  dependencies:
+    bluebird "^3.7.1"
 
 chownr@^1.1.1:
   version "1.1.4"
@@ -825,6 +832,11 @@ electron-builder@22.9.1:
     sanitize-filename "^1.6.3"
     update-notifier "^4.1.1"
     yargs "^16.0.3"
+
+electron-is-dev@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-1.2.0.tgz#2e5cea0a1b3ccf1c86f577cee77363ef55deb05e"
+  integrity sha512-R1oD5gMBPS7PVU8gJwH6CtT0e6VSoD0+SzSnYpNm+dBkcijgA+K7VAMHDfnRq/lkKPZArpzplTW6jfiMYosdzw==
 
 electron-log@4.2.4:
   version "4.2.4"

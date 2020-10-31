@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {NavigationStart, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
 import {Alert, AlertType} from '../model/alert.model';
@@ -53,13 +53,6 @@ export class AlertComponent implements OnInit, OnDestroy {
           setTimeout(() => this.removeAlert(alert, false), 3000);
         }
       });
-
-    // clear alerts on location change
-    this.routeSubscription = this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        this.alertService.clear(this.id);
-      }
-    });
   }
 
   ngOnDestroy(): void {

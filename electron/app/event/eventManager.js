@@ -1,10 +1,11 @@
 const {ipcMain} = require("electron");
 const {autoUpdater} = require('electron-updater')
+const isDev = require('electron-is-dev');
 
 const semver = require('semver')
 const path = require('path')
 
-const logManager = require('./logManager')
+const logManager = require(path.join('../', 'script', 'logManager'))
 const appManager = require('./appManager')
 
 module.exports = {
@@ -20,7 +21,7 @@ module.exports = {
 
         autoUpdater.checkForUpdates().then(r => {
 
-            const last = r.updateInfo.releaseName
+            let last = r.updateInfo.releaseName
             const curent = autoUpdater.currentVersion.version
             let fullDate = r.updateInfo.releaseDate
 
@@ -35,18 +36,28 @@ module.exports = {
 
             fullDate = date + ' ' + time
 
-            let update = semver.gt(last, curent)
             let past = semver.lt(last, curent)
 
-            ipcMain.on('getLastVersion', (event, arg) => {
-                logManager.log("Event | getLastVersion : " + last, __filename)
-                win.webContents.send('getLastVersionReturn', last)
-            })
+            if (past) {
+                if (!isDev) {
+                    last = "V" + curent + " | DEV PROD ??"
+                } else {
+                    last = "DEV";
+                }
+                fullDate = "00-00-00 00:00:00"
+            }
 
-            ipcMain.on('getBuildDate', (event, arg) => {
-                logManager.log("Event | getBuildDate : " + fullDate, __filename)
-                win.webContents.send('getBuildDateReturn', fullDate)
-            })
+            setTimeout(function () {
+                ipcMain.on('getLastVersion', (event, arg) => {
+                    logManager.log("Event | getLastVersion : " + last, __filename)
+                    win.webContents.send('getLastVersionReturn', last)
+                })
+
+                ipcMain.on('getBuildDate', (event, arg) => {
+                    logManager.log("Event | getBuildDate : " + fullDate, __filename)
+                    win.webContents.send('getBuildDateReturn', fullDate)
+                })
+            }, 3000);
         })
 
         logManager.log("All event loaded", __filename)

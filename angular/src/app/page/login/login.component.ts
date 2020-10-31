@@ -2,6 +2,8 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import {AppService} from "../../service/app.service";
 import {MojangService} from "../../service/mojang.service";
 import {AlertService} from "../../_alert/service/alert.service";
+import {Router} from "@angular/router";
+import {RouteService} from "../../service/route.service";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,7 @@ export class LoginComponent {
   @ViewChild("email") email: ElementRef | undefined;
   @ViewChild("password") password: ElementRef | undefined;
 
-  constructor(private app: AppService, private mojang: MojangService, private alert: AlertService) {
+  constructor(private app: AppService, private mojang: MojangService, private alert: AlertService, private router: Router) {
   }
 
   openLink(url: string) {
@@ -29,9 +31,14 @@ export class LoginComponent {
         if (result.body !== null && typeof result.body.accessToken !== "undefined") {
           MojangService.user = result.body;
           this.alert.success("Connection", "Connection valider par Mojang.");
+          RouteService.navigateByName(this.router, 'server');
         }
       }).catch((ex) => {
-        this.alert.error(ex.title, ex.desc);
+        if (ex.title !== undefined && ex.desc !== undefined) {
+          this.alert.error(ex.title, ex.desc);
+        } else {
+          this.alert.error("Erreur inconnue lors de la connection", "Erreur inconnue lors de la connection");
+        }
       });
     } catch (ex) {
       this.alert.error("Error", ex.toString());

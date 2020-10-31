@@ -9,6 +9,8 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AlertComponent} from "./_alert/component/alert.component";
 import {LoaderComponent} from './component/loader/loader.component';
+import {ServeurComponent} from './page/serveur/serveur.component';
+import {ConnectionServiceModule} from "ng-connection-service";
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import {LoaderComponent} from './component/loader/loader.component';
     LoginComponent,
     HeaderComponent,
     AlertComponent,
-    LoaderComponent
+    LoaderComponent,
+    ServeurComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
+    ConnectionServiceModule,
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {environment} from '../environments/environment';
 import {AppService} from "./service/app.service";
+import {ConnectionService} from "ng-connection-service";
+import {AlertService} from "./_alert/service/alert.service";
 
 @Component({
   selector: 'app-root',
@@ -13,8 +15,18 @@ export class AppComponent {
   appBuildDate: any;
   appReady: boolean = false;
   hideLoader: boolean = false;
+  private idAlert: string | undefined;
 
-  constructor(appService: AppService) {
+  constructor(private appService: AppService, private connectionService: ConnectionService, private alert: AlertService) {
+
+    this.connectionService.monitor().subscribe(isConnected => {
+      if (isConnected) {
+        this.alert.clear();
+      } else {
+        this.alert.warn("Erreur de connection", "Merci de vérifier votre connection internet", false, false, true);
+      }
+    });
+
     if (!environment.production) {
       setTimeout(() => {
         this.appReady = true;
@@ -24,35 +36,59 @@ export class AppComponent {
         setTimeout(() => {
           this.hideLoader = true;
         }, 1900);
-      }, 1500);
+      }, 0);
     } else {
       setTimeout(() => {
-        appService.getAppName().then((name) => {
-          this.appName = name;
-
-          appService.getLastVersion().then((version) => {
-            this.appVersion = version;
-
-            appService.getBuildDate().then((formatDate) => {
-              this.appBuildDate = formatDate;
-
-              this.appReady = true;
-              setTimeout(() => this.hideLoader = true, 1900);
-            }).catch((ex) => {
-              console.error(ex);
-            });
-          }).catch((ex) => {
-            console.error(ex);
-          });
-        }).catch((ex) => {
-          console.error(ex);
-        });
-      }, 2200);
+        console.log("Call Event");
+        this.getName();
+        this.getBuild();
+        this.getVersion();
+      }, 2500);
     }
-
   }
 
   background(): string {
     return "background-image: url('assets/background.jpg');";
+  }
+
+  private getName() {
+    this.appService.getAppName().then((name) => {
+      this.appName = name;
+      this.showLogin();
+    }).catch((ex) => {
+      console.error(ex);
+      setTimeout(() => this.getName(), 500);
+    });
+  }
+
+  private getVersion() {
+    this.appService.getLastVersion().then((version) => {
+      this.appVersion = version;
+      this.showLogin();
+    }).catch((ex) => {
+      console.error(ex);
+      setTimeout(() => this.getVersion(), 500);
+    });
+  }
+
+  private getBuild() {
+    this.appService.getBuildDate().then((formatDate) => {
+      this.appBuildDate = formatDate;
+      this.showLogin();
+    }).catch((ex) => {
+      console.error(ex);
+      setTimeout(() => this.getBuild(), 500);
+    });
+  }
+
+  private showLogin() {
+    if (this.appVersion !== null && typeof this.appVersion === "string" && this.appVersion.length > 0) {
+      if (this.appBuildDate !== null && typeof this.appBuildDate === "string" && this.appBuildDate.length > 0) {
+        if (this.appName !== null && typeof this.appName === "string" && this.appName.length > 0) {
+          this.appReady = true;
+          setTimeout(() => this.hideLoader = true, 1900);
+        }
+      }
+    }
   }
 }

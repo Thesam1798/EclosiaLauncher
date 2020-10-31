@@ -2,6 +2,7 @@ const moment = require('moment')
 const fs = require('fs');
 const path = require('path')
 const folder = path.join(process.env.LOCALAPPDATA, require(path.join(__dirname, '../..', 'package.json')).productName)
+const isDev = require('electron-is-dev');
 
 print("------------------------------------------------------------------------------------------------------------------------------------------------------", false)
 
@@ -44,26 +45,28 @@ module.exports = {
 
 function print(string, error) {
 
-    try {
+    if (!isDev) {
+        try {
 
-        if (!fs.existsSync(path.join(folder))) {
-            fs.mkdirSync(path.join(folder))
+            if (!fs.existsSync(path.join(folder))) {
+                fs.mkdirSync(path.join(folder))
+            }
+
+            if (!fs.existsSync(path.join(folder, 'logs'))) {
+                fs.mkdirSync(path.join(folder, 'logs'))
+            }
+
+            fs.appendFile(path.join(folder, 'logs', moment().format('D_M_YYYY') + '.txt'), string + '\n', function (err) {
+                if (err) console.log(err)
+            });
+        } catch (e) {
+            console.error(e)
         }
-
-        if (!fs.existsSync(path.join(folder, 'logs'))) {
-            fs.mkdirSync(path.join(folder, 'logs'))
-        }
-
-        fs.appendFile(path.join(folder, 'logs', moment().format('D_M_YYYY') + '.txt'), string + '\n', function (err) {
-            if (err) console.log(err)
-        });
-    } catch (e) {
-        console.error(e)
-    }
-
-    if (error) {
-        console.error(string)
     } else {
-        console.log(string)
+        if (error) {
+            console.error(string)
+        } else {
+            console.log(string)
+        }
     }
 }
