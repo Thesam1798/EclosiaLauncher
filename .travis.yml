@@ -80,8 +80,8 @@ deploy:
   file: ${TRAVIS_BUILD_DIR}/electron/output/*
   overwrite: true
   prerelease: true
-  tag_name: ${TRAVIS_TAG}-DRAFT
-  name: ${TRAVIS_TAG}-DRAFT
+  tag_name: ${TRAVIS_BUILD_NUMBER}-${TRAVIS_BUILD_ID}
+  name: DRAFT-${TRAVIS_BUILD_NUMBER}-${TRAVIS_BUILD_ID}
   release_notes: ${TRAVIS_COMMIT_MESSAGE}
   skip_cleanup: true
   draft: true
