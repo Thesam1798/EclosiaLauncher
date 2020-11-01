@@ -5,8 +5,8 @@
   
 <em><h5 align="center">(A la base d'electron et d'angular 10)</h5></em>  
   
-[<p align="center"><img src="https://img.shields.io/travis/thesam1798/EclosiaLauncher.svg?style=for-the-badge" alt="travis"></p>](https://travis-ci.org/dscalzi/HeliosLauncher)  
-  
+[<p align="center"><img src="https://img.shields.io/travis/Thesam1798/EclosiaLauncher?style=flat-square" alt="travis"> <img src="https://img.shields.io/github/languages/top/Thesam1798/EclosiaLauncher?style=flat-square" alt="languages"> <img src="https://img.shields.io/github/languages/code-size/Thesam1798/EclosiaLauncher?color=green&style=flat-square" alt="size"> <img src="https://img.shields.io/github/issues-raw/Thesam1798/EclosiaLauncher?style=flat-square" alt="issues"> <img src="https://img.shields.io/github/commit-activity/w/Thesam1798/EclosiaLauncher?style=flat-square" alt="commit"> <img src="https://img.shields.io/github/last-commit/Thesam1798/EclosiaLauncher?style=flat-square" alt="lastcommit"></p>](https://travis-ci.org/dscalzi/HeliosLauncher)  
+ 
 <p align="center">Rejoignez les serveurs moddés sans vous soucier d'installer Java, Forge ou d'autres mods. Nous nous occuperons de cela pour vous.</p>  
   
 ![Screenshot 1](https://via.placeholder.com/1225x690?text=Placeholder)  
