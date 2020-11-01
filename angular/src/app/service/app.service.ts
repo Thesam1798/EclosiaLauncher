@@ -180,4 +180,29 @@ export class AppService {
       this.ipc.send("getAppName");
     });
   }
+
+  async toggleDevTools() {
+    return new Promise<boolean>((resolve, reject) => {
+      if (typeof this.ipc === "undefined") {
+        reject("IPC : undefined");
+        return;
+      }
+
+      setTimeout(() => {
+        reject('ToggleDevTools : Timeout');
+        return;
+      }, 5000);
+
+      this.ipc.removeAllListeners("toggleDevToolsReturn");
+
+      this.ipc.once("toggleDevToolsReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
+        if (typeof arg === "boolean") {
+          resolve(arg);
+        } else {
+          reject(arg);
+        }
+      });
+      this.ipc.send("toggleDevTools");
+    });
+  }
 }

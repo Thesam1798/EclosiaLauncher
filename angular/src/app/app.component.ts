@@ -44,6 +44,12 @@ export class AppComponent {
         this.getVersion();
       }, 2500);
     }
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.key === 'I' || e.key === 'i') && e.ctrlKey && e.shiftKey) {
+        appService.toggleDevTools().then();
+      }
+    });
   }
 
   background(): string {

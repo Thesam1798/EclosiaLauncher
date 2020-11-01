@@ -8,7 +8,7 @@ module.exports = {
 
     load: function (win) {
 
-        ipcMain.on('closeEvent', (event, arg) => {
+        ipcMain.on('closeEvent', () => {
             logManager.log("Quit Launcher", __filename)
             updateManager.install()
             win.webContents.send('closeEventReturn', true)
@@ -18,7 +18,7 @@ module.exports = {
 
         logManager.log("closeEvent loaded", __filename)
 
-        ipcMain.on('minEvent', (event, arg) => {
+        ipcMain.on('minEvent', () => {
             logManager.log("Minimize Launcher", __filename)
             win.minimize()
             win.webContents.send('minEventReturn', true)
@@ -29,11 +29,25 @@ module.exports = {
         ipcMain.on('openLink', (event, arg) => {
             logManager.log("Demande d'ouverture d'une url : " + arg, __filename)
             shell.openExternal(arg)
-                .then(r => win.webContents.send('openLinkReturn', true))
+                .then(win.webContents.send('openLinkReturn', true))
                 .catch(ex => {
                     logManager.error(ex, __filename)
                     win.webContents.send('openLinkReturn', false)
                 })
+        })
+
+        ipcMain.on('toggleDevTools', () => {
+            let devToolsOpened = win.webContents.isDevToolsOpened();
+
+            if (devToolsOpened) {
+                win.webContents.closeDevTools()
+                logManager.log("Demande de fermeture de la console", __filename)
+            } else {
+                win.webContents.openDevTools()
+                logManager.log("Demande d'ouverture de la console", __filename)
+            }
+
+            win.webContents.send('toggleDevToolsReturn', !devToolsOpened)
         })
 
         logManager.log("openLink loaded", __filename)
