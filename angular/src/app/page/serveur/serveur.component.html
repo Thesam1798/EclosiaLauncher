@@ -1,1 +1,22 @@
-<p>serveur works!</p>
+<div [style]="scroll()" class="content"></div>
+<div [style]="scroll('news')" class="bottom">
+  <div (click)="showNews()" class="news">
+    <button id="newsButton">
+      <div id="newsButtonAlert" style=""></div>
+      <svg id="newsButtonSVG" viewBox="0 0 24.87 13.97">
+        <defs>
+          <style>.arrowLine {
+            fill: none;
+            stroke: #FFF;
+            stroke-width: 2px;
+          }</style>
+        </defs>
+        <polyline class="arrowLine" points="0.71 13.26 12.56 1.41 24.16 13.02"></polyline>
+      </svg>
+
+      <span id="newsButtonText">NEWS</span>
+    </button>
+  </div>
+</div>
+
+<div [style]="scroll('news-show')" class="news-content"></div>

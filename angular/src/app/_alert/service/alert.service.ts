@@ -3,6 +3,7 @@ import {Observable, Subject} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
 import {Alert, AlertType} from '../model/alert.model';
+import {LoggerService} from "../../service/logger.service";
 
 @Injectable({providedIn: 'root'})
 export class AlertService {
@@ -67,6 +68,7 @@ export class AlertService {
   alert(alert: Alert): Alert {
     alert.id = alert.id || this.defaultId;
     this.subject.next(alert);
+    LoggerService.log("Ouverture d'une nouvelle alert : " + alert.title, "Alert Service");
     return alert;
   }
 

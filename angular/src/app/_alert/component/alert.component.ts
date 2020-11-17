@@ -94,7 +94,7 @@ export class AlertComponent implements OnInit, OnDestroy {
     const alertTypeClass = {
       [AlertType.Success]: 'success',
       [AlertType.Error]: 'error',
-      [AlertType.Info]: 'info',
+      [AlertType.Info]: 'infoCircle',
       [AlertType.Warning]: 'warning'
     }
 
@@ -116,7 +116,7 @@ export class AlertComponent implements OnInit, OnDestroy {
       [AlertType.Error]: this.icons.bug,
       [AlertType.Warning]: this.icons.warning,
       [AlertType.Success]: this.icons.check,
-      [AlertType.Info]: this.icons.info
+      [AlertType.Info]: this.icons.infoCircle
     }
 
     classes.push(alertTypeClass[alert.type]);

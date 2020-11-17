@@ -1,7 +1,8 @@
+const {app} = require('electron')
 const moment = require('moment')
 const fs = require('fs');
 const path = require('path')
-const folder = path.join(process.env.LOCALAPPDATA, require(path.join(__dirname, '../..', 'package.json')).productName)
+const folder = path.join(app.getAppPath(), "..", "..")
 const isDev = require('electron-is-dev');
 
 print("------------------------------------------------------------------------------------------------------------------------------------------------------", false)

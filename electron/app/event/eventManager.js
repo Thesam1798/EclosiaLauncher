@@ -15,8 +15,9 @@ module.exports = {
         appManager.load(win)
 
         ipcMain.on('getAppName', (event, arg) => {
-            logManager.log("Event | getAppName : " + (require(path.join(__dirname, '../..', 'package.json')).productName).split('-')[0], __filename)
-            win.webContents.send('getAppNameReturn', (require(path.join(__dirname, '../..', 'package.json')).productName).split('-')[0])
+            let productName = (require(path.join(__dirname, '../..', 'package.json')).productName).split('-')[0];
+            logManager.log("Event | getAppName : " + productName, __filename)
+            win.webContents.send('getAppNameReturn', productName)
         })
 
         autoUpdater.checkForUpdates().then(r => {
@@ -47,17 +48,15 @@ module.exports = {
                 fullDate = "00-00-00 00:00:00"
             }
 
-            setTimeout(function () {
-                ipcMain.on('getLastVersion', (event, arg) => {
-                    logManager.log("Event | getLastVersion : " + last, __filename)
-                    win.webContents.send('getLastVersionReturn', last)
-                })
+            ipcMain.on('getLastVersion', (event, arg) => {
+                logManager.log("Event | getLastVersion : " + last, __filename)
+                win.webContents.send('getLastVersionReturn', last)
+            })
 
-                ipcMain.on('getBuildDate', (event, arg) => {
-                    logManager.log("Event | getBuildDate : " + fullDate, __filename)
-                    win.webContents.send('getBuildDateReturn', fullDate)
-                })
-            }, 3000);
+            ipcMain.on('getBuildDate', (event, arg) => {
+                logManager.log("Event | getBuildDate : " + fullDate, __filename)
+                win.webContents.send('getBuildDateReturn', fullDate)
+            })
         })
 
         logManager.log("All event loaded", __filename)

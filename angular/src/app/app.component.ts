@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
 import {environment} from '../environments/environment';
-import {AppService} from "./service/app.service";
+import {EventService} from "./service/event.service";
 import {ConnectionService} from "ng-connection-service";
 import {AlertService} from "./_alert/service/alert.service";
+import {LoggerService} from "./service/logger.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,15 @@ export class AppComponent {
   appReady: boolean = false;
   hideLoader: boolean = false;
 
-  constructor(private appService: AppService, private connectionService: ConnectionService, private alert: AlertService) {
+  constructor(
+    private appService: EventService,
+    private connectionService: ConnectionService,
+    private alert: AlertService,
+    private router: Router
+  ) {
+
+    console.clear();
+    LoggerService.log("Ouverture du front", "App Component");
 
     this.connectionService.monitor().subscribe(isConnected => {
       if (isConnected) {
@@ -24,21 +34,27 @@ export class AppComponent {
       } else {
         this.alert.warn("Erreur de connection", "Merci de vérifier votre connection internet", false, false, true);
       }
+      LoggerService.log("Connection internet : " + isConnected, "App Component");
     });
 
     if (!environment.production) {
+      LoggerService.log("Environment de DEV", "App Component");
       setTimeout(() => {
+        LoggerService.log("Définition des variable pour le front", "App Component");
         this.appReady = true;
         this.appName = "Eclosia";
         this.appVersion = "DEV";
         this.appBuildDate = "25-10-2020 13:23:40";
         setTimeout(() => {
+          LoggerService.log("Hide loader", "App Component");
           this.hideLoader = true;
-        }, 1900);
+          setTimeout(() => {
+            //RouteService.navigateByName(this.router, 'server');
+          }, 2000);
+        }, 2000);
       }, 2500);
     } else {
       setTimeout(() => {
-        console.log("Call Event");
         this.getName();
         this.getBuild();
         this.getVersion();
@@ -47,6 +63,7 @@ export class AppComponent {
 
     document.addEventListener('keydown', function (e) {
       if ((e.key === 'I' || e.key === 'i') && e.ctrlKey && e.shiftKey) {
+        LoggerService.log("Demande d'ouverture de la console", "App Component");
         appService.toggleDevTools().then();
       }
     });
@@ -57,31 +74,34 @@ export class AppComponent {
   }
 
   private getName() {
-    this.appService.getAppName().then((name) => {
+    LoggerService.log("Tentative de la récupération du nom de l'application", "App Component");
+    this.appService.getAppName().then((name: any) => {
       this.appName = name;
       this.showApp();
-    }).catch((ex) => {
-      console.error(ex);
+    }).catch((ex: string) => {
+      LoggerService.log(ex, "App Component");
       setTimeout(() => this.getName(), 500);
     });
   }
 
   private getVersion() {
-    this.appService.getLastVersion().then((version) => {
+    LoggerService.log("Tentative de la récupération du numéro de build", "App Component");
+    this.appService.getLastVersion().then((version: any) => {
       this.appVersion = version;
       this.showApp();
-    }).catch((ex) => {
-      console.error(ex);
+    }).catch((ex: string) => {
+      LoggerService.log(ex, "App Component");
       setTimeout(() => this.getVersion(), 500);
     });
   }
 
   private getBuild() {
-    this.appService.getBuildDate().then((formatDate) => {
+    LoggerService.log("Tentative de la récupération de la date du build", "App Component");
+    this.appService.getBuildDate().then((formatDate: any) => {
       this.appBuildDate = formatDate;
       this.showApp();
-    }).catch((ex) => {
-      console.error(ex);
+    }).catch((ex: string) => {
+      LoggerService.log(ex, "App Component");
       setTimeout(() => this.getBuild(), 500);
     });
   }
@@ -90,8 +110,12 @@ export class AppComponent {
     if (this.appVersion !== null && typeof this.appVersion === "string" && this.appVersion.length > 0) {
       if (this.appBuildDate !== null && typeof this.appBuildDate === "string" && this.appBuildDate.length > 0) {
         if (this.appName !== null && typeof this.appName === "string" && this.appName.length > 0) {
+          LoggerService.log("Toute les information on été récupérer", "App Component");
           this.appReady = true;
-          setTimeout(() => this.hideLoader = true, 1900);
+          setTimeout(() => {
+            LoggerService.log("Hide loader", "App Component");
+            this.hideLoader = true;
+          }, 1900);
         }
       }
     }

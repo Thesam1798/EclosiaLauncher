@@ -1,24 +1,24 @@
 import {Injectable} from '@angular/core';
 import {IpcRenderer} from "electron";
+import {LoggerService} from "./logger.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppService {
+export class EventService {
   public static dev: boolean;
-
   private readonly ipc: IpcRenderer | undefined;
 
   constructor() {
     if ((<any>window).require) {
       try {
-        this.ipc = (<any>window).require('electron').ipcRenderer
+        this.ipc = (<any>window).require('electron').ipcRenderer;
       } catch (error) {
-        console.error('Could not load electron ipc !!!')
-        throw error
+        LoggerService.error('Could not load electron ipc !!!', "App Service");
+        throw error;
       }
     } else {
-      console.error('Could not load electron ipc')
+      LoggerService.error('Could not load electron ipc', "App Service");
     }
   }
 
