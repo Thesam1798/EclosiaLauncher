@@ -5,6 +5,7 @@ import {ConnectionService} from "ng-connection-service";
 import {AlertService} from "./_alert/service/alert.service";
 import {LoggerService} from "./service/logger.service";
 import {Router} from "@angular/router";
+import {RouteService} from "./service/route.service";
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,6 @@ export class AppComponent {
     private alert: AlertService,
     private router: Router
   ) {
-
     console.clear();
     LoggerService.log("Ouverture du front", "App Component");
 
@@ -49,7 +49,7 @@ export class AppComponent {
           LoggerService.log("Hide loader", "App Component");
           this.hideLoader = true;
           setTimeout(() => {
-            //RouteService.navigateByName(this.router, 'server');
+            RouteService.navigateByName(this.router, 'server');
           }, 2000);
         }, 2000);
       }, 2500);

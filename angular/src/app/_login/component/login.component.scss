@@ -233,6 +233,20 @@ input[type=submit] {
     justify-content: space-between;
     align-items: center;
     margin-top: 35px;
+
+    @media only screen and (max-width: 1195px) {
+      display: block !important;
+      text-align: center;
+
+      .forms_buttons-forgot {
+        width: 100%;
+      }
+
+      .forms_buttons-action {
+        margin-top: 5px;
+      }
+
+    }
   }
 
   .forms_buttons-forgot {
@@ -262,19 +276,5 @@ input[type=submit] {
     &:hover {
       background-color: #e14641;
     }
-  }
-}
-
-@media only screen and (max-width: 1195px) {
-  .forms_buttons {
-    display: block !important;
-  }
-
-  .forms_buttons-forgot, .forms_buttons-action {
-    width: 100%;
-  }
-
-  .forms_buttons-action {
-    padding-top: 5px;
   }
 }

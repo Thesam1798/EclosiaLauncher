@@ -17,17 +17,17 @@ export class RouteService {
   public static routesName: RouterName[] = [];
 
   public static getFromUrl(url: string): Route {
-    LoggerService.log("Demande de récupération de la route via l'url", "Route Service");
+    LoggerService.log("Demande de récupération de la route via l'url : " + url, "Route Service");
     return this.routes.filter(value => value.path === url)[0];
   }
 
   public static getNameFromUrl(url: string): string {
-    LoggerService.log("Demande de récupération de l'url via le nom de la route", "Route Service");
+    LoggerService.log("Demande de récupération de l'url via le nom de la route : " + url, "Route Service");
     return this.routesName.filter(value => value.route.path === url)[0].name;
   }
 
   public static getUrlFromName(name: string): Route {
-    LoggerService.log("Demande de récupération de la route via le nom", "Route Service");
+    LoggerService.log("Demande de récupération de la route via le nom : " + name, "Route Service");
     return this.routesName.filter(value => value.name === name)[0].route;
   }
 
