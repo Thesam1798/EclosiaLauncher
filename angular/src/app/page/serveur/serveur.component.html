@@ -1,0 +1,29 @@
+<div [style]="scroll('news-show-bg')" class="all">
+  <div [style]="scroll()" class="content">
+    <app-java-download [alert_only]="true"></app-java-download>
+  </div>
+
+  <div [style]="scroll('news')" class="bottom">
+    <div (click)="showNews()" class="news">
+      <button id="newsButton">
+        <span id="newsButtonAlert"></span>
+        <svg id="newsButtonSVG" viewBox="0 0 24.87 13.97">
+          <defs>
+            <style>.arrowLine {
+              fill: none;
+              stroke: #FFF;
+              stroke-width: 2px;
+            }</style>
+          </defs>
+          <polyline class="arrowLine" points="0.71 13.26 12.56 1.41 24.16 13.02"></polyline>
+        </svg>
+
+        <span id="newsButtonText">NEWS</span>
+      </button>
+    </div>
+  </div>
+
+  <div [style]="scroll('news-show')" class="news-content">
+    <app-news-show [news]="news"></app-news-show>
+  </div>
+</div>

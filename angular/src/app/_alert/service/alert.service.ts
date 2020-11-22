@@ -3,6 +3,7 @@ import {Observable, Subject} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
 import {Alert, AlertType} from '../model/alert.model';
+import {LoggerService} from "../../service/logger.service";
 
 @Injectable({providedIn: 'root'})
 export class AlertService {
@@ -15,26 +16,60 @@ export class AlertService {
   }
 
   // convenience methods
-  success(title: string, message: string, fade: boolean = true, autoClose: boolean = true, options?: any) {
-    this.alert(new Alert({...options, type: AlertType.Success, message, title, fade: fade, autoClose: autoClose}));
+  success(title: string, message: string, fade: boolean = true, autoClose: boolean = true, noClose: boolean = false, options?: any): Alert {
+    return this.alert(new Alert({
+      ...options,
+      type: AlertType.Success,
+      message,
+      title,
+      fade: fade,
+      noClose: noClose,
+      autoClose: autoClose
+    }));
   }
 
-  error(title: string, message: string, fade: boolean = true, autoClose: boolean = true, options?: any) {
-    this.alert(new Alert({...options, type: AlertType.Error, message, title, fade: fade, autoClose: autoClose}));
+  error(title: string, message: string, fade: boolean = true, autoClose: boolean = true, noClose: boolean = false, options?: any): Alert {
+    return this.alert(new Alert({
+      ...options,
+      type: AlertType.Error,
+      message,
+      title,
+      fade: fade,
+      noClose: noClose,
+      autoClose: autoClose
+    }));
   }
 
-  info(title: string, message: string, fade: boolean = true, autoClose: boolean = true, options?: any) {
-    this.alert(new Alert({...options, type: AlertType.Info, message, title, fade: fade, autoClose: autoClose}));
+  info(title: string, message: string, fade: boolean = true, autoClose: boolean = true, noClose: boolean = false, options?: any): Alert {
+    return this.alert(new Alert({
+      ...options,
+      type: AlertType.Info,
+      message,
+      title,
+      fade: fade,
+      noClose: noClose,
+      autoClose: autoClose
+    }));
   }
 
-  warn(title: string, message: string, fade: boolean = true, autoClose: boolean = true, options?: any) {
-    this.alert(new Alert({...options, type: AlertType.Warning, message, title, fade: fade, autoClose: autoClose}));
+  warn(title: string, message: string, fade: boolean = true, autoClose: boolean = true, noClose: boolean = false, options?: any): Alert {
+    return this.alert(new Alert({
+      ...options,
+      type: AlertType.Warning,
+      message,
+      title,
+      fade: fade,
+      noClose: noClose,
+      autoClose: autoClose
+    }));
   }
 
   // main alert method
-  alert(alert: Alert) {
+  alert(alert: Alert): Alert {
     alert.id = alert.id || this.defaultId;
     this.subject.next(alert);
+    LoggerService.log("Ouverture d'une nouvelle alert : " + alert.title, "Alert Service");
+    return alert;
   }
 
   // clear alerts

@@ -4,23 +4,50 @@
     <div class="frameResizableVert frameDragPadder"></div>
     <div id="frameContentWin"> <!--Drag on drop de la page : frameContentWin-->
       <div id="frameTitleDock">
-        <span id="frameTitleText">{{title}} - <span style="text-transform: uppercase">{{version}}</span></span>
+        <span *ngIf="showName()" id="frameTitleText">{{title}} - <span
+          style="text-transform: uppercase">{{version}}</span></span>
       </div>
       <div id="frameButtonDockWin">
-        <button (click)="miniApp()" class="frameButton fMb" id="frameButton_minimize" tabIndex="-1">
-          <svg height="10" name="TitleBarMinimize" viewBox="0 0 12 12" width="10">
-            <rect fill="#ffffff" height="1" stroke="#ffffff" width="10" x="1" y="6"></rect>
-          </svg>
+        <button (click)="openConsole()" class="frameButton" id="frameButton_debug" tabIndex="-1">
+          <fa-icon [icon]="icons.terminal"></fa-icon>
         </button>
-        <button (click)="closeApp()" class="frameButton fCb" id="frameButton_close" tabIndex="-1">
-          <svg height="10" name="TitleBarClose" viewBox="0 0 12 12" width="10">
-            <polygon fill="#ffffff" fill-rule="evenodd"
-                     points="11 1.576 6.583 6 11 10.424 10.424 11 6 6.583 1.576 11 1 10.424 5.417 6 1 1.576 1.576 1 6 5.417 10.424 1"
-                     stroke="#ffffff"></polygon>
-          </svg>
+        <button (click)="showInfo()" class="frameButton" id="frameButton_info" tabIndex="-1">
+          <fa-icon [icon]="icons.info"></fa-icon>
+        </button>
+        <button (click)="miniApp()" class="frameButton" id="frameButton_minimize" tabIndex="-1">
+          <fa-icon [icon]="icons.windowMinimize"></fa-icon>
+        </button>
+        <button (click)="closeApp()" class="frameButton" id="frameButton_close" tabIndex="-1">
+          <fa-icon [icon]="icons.windowClose"></fa-icon>
         </button>
       </div>
     </div>
     <div class="frameResizableVert frameDragPadder"></div>
+  </div>
+</div>
+
+<div [ngClass]="{'show': this.info, 'hide': !this.info}" class="info fade">
+  <div class="modal" style="padding-bottom: 20px; height: auto">
+    <div class="close">
+      <fa-icon (click)="showInfo()" [icon]="icons.windowClose"></fa-icon>
+    </div>
+    <div class="title">
+      <fa-icon [icon]="icons.infoCircle"></fa-icon>
+    </div>
+    <div class="text">
+      Nom de l'application : {{title}}<br>
+      <hr>
+      Dernier version : {{version}}<br>
+      <hr>
+      Dossier de l'application : {{dir}}
+      <button (click)="openDir(dir)">Ouvrir</button>
+      <br>
+      <hr>
+      Date de la dernier version : {{build}}<br>
+      <hr>
+      Téléchargement des version :
+      <button (click)="openLink('https://github.com/Thesam1798/EclosiaLauncher/releases')">GitHub</button>
+      <br>
+    </div>
   </div>
 </div>

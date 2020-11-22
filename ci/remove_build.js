@@ -21,7 +21,4 @@ deleteFolderRecursive(process.argv[2] + "/dist");
 deleteFolderRecursive(process.argv[2] + "/electron/output");
 deleteFolderRecursive(process.argv[2] + "/electron/src");
 
-deleteFolderRecursive(process.argv[2] + "/electron/node_modules");
-deleteFolderRecursive(process.argv[2] + "/angular/node_modules");
-
 console.log("Successfully cleaned working tree!");

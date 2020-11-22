@@ -1,10 +1,11 @@
-const {ipcMain} = require("electron");
+const {app, ipcMain} = require("electron");
 const {autoUpdater} = require('electron-updater')
+const isDev = require('electron-is-dev');
 
 const semver = require('semver')
 const path = require('path')
 
-const logManager = require('./logManager')
+const logManager = require(path.join('../', 'script', 'logManager'))
 const appManager = require('./appManager')
 
 module.exports = {
@@ -13,14 +14,28 @@ module.exports = {
 
         appManager.load(win)
 
-        ipcMain.on('getAppName', (event, arg) => {
-            logManager.log("Event | getAppName : " + (require(path.join(__dirname, '../..', 'package.json')).productName).split('-')[0], __filename)
-            win.webContents.send('getAppNameReturn', (require(path.join(__dirname, '../..', 'package.json')).productName).split('-')[0])
+        ipcMain.on('getAppName', () => {
+            let productName = (require(path.join(__dirname, '../..', 'package.json')).productName).split('-')[0];
+            logManager.log("Event | getAppName : " + productName, __filename)
+            win.webContents.send('getAppNameReturn', productName)
+        })
+
+        ipcMain.on('getAppDir', () => {
+            let app_folder
+            if (isDev) {
+                //Curent dir in dev
+                app_folder = path.join(app.getAppPath())
+            } else {
+                //Output compiled dir
+                app_folder = path.join(app.getAppPath(), "..", "..")
+            }
+            logManager.log("Event | getAppDir : " + app_folder, __filename)
+            win.webContents.send('getAppDirReturn', app_folder)
         })
 
         autoUpdater.checkForUpdates().then(r => {
 
-            const last = r.updateInfo.releaseName
+            let last = r.updateInfo.releaseName
             const curent = autoUpdater.currentVersion.version
             let fullDate = r.updateInfo.releaseDate
 
@@ -35,15 +50,23 @@ module.exports = {
 
             fullDate = date + ' ' + time
 
-            let update = semver.gt(last, curent)
             let past = semver.lt(last, curent)
 
-            ipcMain.on('getLastVersion', (event, arg) => {
+            if (past) {
+                if (!isDev) {
+                    last = "V" + curent + " | DEV PROD ??"
+                } else {
+                    last = "DEV";
+                }
+                fullDate = "00-00-00 00:00:00"
+            }
+
+            ipcMain.on('getLastVersion', () => {
                 logManager.log("Event | getLastVersion : " + last, __filename)
                 win.webContents.send('getLastVersionReturn', last)
             })
 
-            ipcMain.on('getBuildDate', (event, arg) => {
+            ipcMain.on('getBuildDate', () => {
                 logManager.log("Event | getBuildDate : " + fullDate, __filename)
                 win.webContents.send('getBuildDateReturn', fullDate)
             })

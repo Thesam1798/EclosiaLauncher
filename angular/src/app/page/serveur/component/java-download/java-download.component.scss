@@ -1,0 +1,17 @@
+.download {
+  position: relative;
+  color: white;
+  min-width: 500px;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: -250vh;
+  transition: left 2s ease;
+  margin: 10px;
+
+  .info {
+    padding-bottom: 5px;
+  }
+}

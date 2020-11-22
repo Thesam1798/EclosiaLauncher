@@ -1,0 +1,8 @@
+<div class="progress-bar-container">
+  <div [ngStyle]="{
+       'width':  ((progress / total) * 100) > 100 ? 100 : ((progress / total) * 100) + '%',
+       'height':  height
+       }"
+       class="progress-bar">
+  </div>
+</div>

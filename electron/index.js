@@ -1,10 +1,10 @@
 const {app, BrowserWindow, dialog} = require('electron')
+const isDev = require('electron-is-dev');
 const path = require('path')
-
 
 try {
     const eventManager = require(path.join(app.getAppPath(), 'app', 'event', 'eventManager'))
-    const logManager = require(path.join(app.getAppPath(), 'app', 'event', 'logManager'))
+    const logManager = require(path.join(app.getAppPath(), 'app', 'script', 'logManager'))
     const updateManager = require(path.join(app.getAppPath(), 'app', 'script', 'updateManager'))
 
     let win;
@@ -17,10 +17,12 @@ try {
 
         // Create the browser window.
         win = new BrowserWindow({
-            width: 1080 * 1.5,
+            width: 980 * 1.5,
             height: 552 * 1.5,
             minWidth: 980,
             minHeight: 552,
+            maxWidth: 980 * 1.5,
+            maxHeight: 552 * 1.5,
             icon: path.join(app.getAppPath(), 'src', 'assets', 'logo.png'),
             show: false,
             center: true,
@@ -41,7 +43,9 @@ try {
 
         win.loadURL(`file://${app.getAppPath()}/src/index.html`).then(() => {
             logManager.log("Fichier index load !", __filename)
-            //win.webContents.openDevTools()
+            if (isDev) {
+                win.webContents.openDevTools()
+            }
         }).catch(ex => {
             logManager.error(ex, __filename)
         })
@@ -84,7 +88,6 @@ try {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
-
     // On macOS specific close process
     if (process.platform !== 'darwin') {
         app.quit()

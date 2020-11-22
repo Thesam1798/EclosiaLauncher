@@ -88,7 +88,7 @@ export class MojangService {
     }
   }
 
-  async authenticate(username: any, password: any, clientToken: null) {
+  async authenticate(username: any, password: any, clientToken: any = null) {
     return new Promise<HttpResponse<UserData>>((resolve, reject) => {
       let body = {
         agent: {
@@ -125,6 +125,38 @@ export class MojangService {
           resolve(resp);
         } else {
           reject(resp);
+        }
+      });
+    });
+  }
+
+  async validate(accessToken: any, clientToken: any = null) {
+    return new Promise<boolean>((resolve, reject) => {
+      let body = {
+        accessToken: accessToken,
+        clientToken: clientToken
+      };
+
+      let header = new HttpHeaders()
+        .set('Content-Type', 'application/json; charset=utf-8');
+
+      let request = this.http.post<any>(this._authpath + '/validate', JSON.stringify(body), {
+        headers: header,
+        observe: 'response'
+      }).pipe(
+        retry(0),
+        catchError((error: HttpErrorResponse) => {
+          let resolveError1 = MojangService.resolveError(error.error);
+          reject(false);
+          return throwError(resolveError1.title);
+        })
+      );
+
+      request.subscribe(resp => {
+        if (resp.status === 204) {
+          resolve(true);
+        } else {
+          reject(false);
         }
       });
     });
