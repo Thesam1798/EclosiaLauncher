@@ -13,7 +13,8 @@ export class HeaderComponent {
   @Input('title') title: string | undefined;
   @Input('version') version: string | undefined;
   @Input('build') build: string | undefined;
-  public info: boolean = false;
+  @Input('dir') dir: string | undefined;
+  info: boolean = false;
 
   constructor(private app: EventService, public icons: IconsService) {
   }
@@ -41,10 +42,16 @@ export class HeaderComponent {
   }
 
   openConsole() {
-    this.app.toggleDevTools();
+    this.app.toggleDevTools().then();
   }
 
   showInfo() {
     this.info = !this.info;
+  }
+
+  openDir(dir: string | undefined) {
+    if (dir != undefined) {
+      this.app.openDir(dir).then();
+    }
   }
 }

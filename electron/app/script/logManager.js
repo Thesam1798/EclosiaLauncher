@@ -28,6 +28,10 @@ module.exports = {
         print(this.prefix(scope, "DEBUG") + data, false)
     },
 
+    info: function (data, scope = "unknown") {
+        print(this.prefix(scope, "INFO") + data, false)
+    },
+
     error: function (data, scope = "unknown") {
         const prefix = this.prefix(scope, "ERROR")
         const length = data.length + prefix.length

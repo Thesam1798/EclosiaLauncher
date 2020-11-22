@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "@octokit/core": "3.2.1",
-    "adm-zip": "0.4.16",
     "async": "3.2.0",
     "discord-rpc": "3.1.4",
     "ejs": "3.1.5",
@@ -34,12 +33,14 @@
     "electron-log": "4.2.4",
     "electron-updater": "4.3.5",
     "fs-extra": "9.0.1",
-    "gamedig": "^2.0.23",
     "github-syntax-dark": "0.5.0",
+    "inly": "^4.0.8",
     "jquery": "3.5.1",
     "js-yaml": "3.14.0",
+    "minecraft-launcher-core": "^3.15.0",
     "moment": "2.29.1",
     "request": "2.88.2",
+    "request-progress": "3.0.0",
     "semver": "7.3.2",
     "tar-fs": "2.1.0",
     "winreg": "1.2.4"

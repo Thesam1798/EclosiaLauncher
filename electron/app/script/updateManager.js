@@ -12,18 +12,18 @@ autoUpdater.autoDownload = false
 autoUpdater.autoInstallOnAppQuit = false
 
 autoUpdater.on('checking-for-update', () => {
-    logManager.log('Checking for update...', __filename)
+    logManager.info('Checking for update...', __filename)
 })
 
 autoUpdater.on('update-available', (info) => {
-    logManager.log('Update available', __filename)
-    logManager.log('Version : ' + info.version, __filename)
-    logManager.log('Release date : ' + info.releaseDate, __filename)
+    logManager.info('Update available', __filename)
+    logManager.info('Version : ' + info.version, __filename)
+    logManager.info('Release date : ' + info.releaseDate, __filename)
 })
 
 autoUpdater.on('update-not-available', () => {
-    logManager.log('Update not available', __filename)
-    logManager.log('Version : ' + autoUpdater.currentVersion.version, __filename)
+    logManager.info('Update not available', __filename)
+    logManager.info('Version : ' + autoUpdater.currentVersion.version, __filename)
 })
 
 autoUpdater.on('download-progress', (progress) => {

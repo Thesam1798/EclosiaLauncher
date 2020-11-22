@@ -1,4 +1,4 @@
-const {ipcMain} = require("electron");
+const {app, ipcMain} = require("electron");
 const {autoUpdater} = require('electron-updater')
 const isDev = require('electron-is-dev');
 
@@ -14,10 +14,23 @@ module.exports = {
 
         appManager.load(win)
 
-        ipcMain.on('getAppName', (event, arg) => {
+        ipcMain.on('getAppName', () => {
             let productName = (require(path.join(__dirname, '../..', 'package.json')).productName).split('-')[0];
             logManager.log("Event | getAppName : " + productName, __filename)
             win.webContents.send('getAppNameReturn', productName)
+        })
+
+        ipcMain.on('getAppDir', () => {
+            let app_folder
+            if (isDev) {
+                //Curent dir in dev
+                app_folder = path.join(app.getAppPath())
+            } else {
+                //Output compiled dir
+                app_folder = path.join(app.getAppPath(), "..", "..")
+            }
+            logManager.log("Event | getAppDir : " + app_folder, __filename)
+            win.webContents.send('getAppDirReturn', app_folder)
         })
 
         autoUpdater.checkForUpdates().then(r => {
@@ -48,12 +61,12 @@ module.exports = {
                 fullDate = "00-00-00 00:00:00"
             }
 
-            ipcMain.on('getLastVersion', (event, arg) => {
+            ipcMain.on('getLastVersion', () => {
                 logManager.log("Event | getLastVersion : " + last, __filename)
                 win.webContents.send('getLastVersionReturn', last)
             })
 
-            ipcMain.on('getBuildDate', (event, arg) => {
+            ipcMain.on('getBuildDate', () => {
                 logManager.log("Event | getBuildDate : " + fullDate, __filename)
                 win.webContents.send('getBuildDateReturn', fullDate)
             })

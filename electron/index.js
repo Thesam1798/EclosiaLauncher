@@ -1,4 +1,5 @@
 const {app, BrowserWindow, dialog} = require('electron')
+const isDev = require('electron-is-dev');
 const path = require('path')
 
 try {
@@ -42,7 +43,9 @@ try {
 
         win.loadURL(`file://${app.getAppPath()}/src/index.html`).then(() => {
             logManager.log("Fichier index load !", __filename)
-            win.webContents.openDevTools()
+            if (isDev) {
+                win.webContents.openDevTools()
+            }
         }).catch(ex => {
             logManager.error(ex, __filename)
         })

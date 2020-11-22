@@ -39,10 +39,15 @@
       <hr>
       Dernier version : {{version}}<br>
       <hr>
+      Dossier de l'application : {{dir}}
+      <button (click)="openDir(dir)">Ouvrir</button>
+      <br>
+      <hr>
       Date de la dernier version : {{build}}<br>
       <hr>
-      Téléchargement des version : <a (click)="openLink('https://github.com/Thesam1798/EclosiaLauncher/releases')"
-                                      href="#">GitHub</a><br>
+      Téléchargement des version :
+      <button (click)="openLink('https://github.com/Thesam1798/EclosiaLauncher/releases')">GitHub</button>
+      <br>
     </div>
   </div>
 </div>

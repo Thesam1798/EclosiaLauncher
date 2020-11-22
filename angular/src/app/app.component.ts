@@ -18,17 +18,18 @@ export class AppComponent {
   appBuildDate: any;
   appReady: boolean = false;
   hideLoader: boolean = false;
+  appDir: any;
 
   constructor(
     private appService: EventService,
-    private connectionService: ConnectionService,
+    private networkService: ConnectionService,
     private alert: AlertService,
     private router: Router
   ) {
     console.clear();
     LoggerService.log("Ouverture du front", "App Component");
 
-    this.connectionService.monitor().subscribe(isConnected => {
+    this.networkService.monitor().subscribe(isConnected => {
       if (isConnected) {
         this.alert.clear();
       } else {
@@ -52,12 +53,14 @@ export class AppComponent {
             RouteService.navigateByName(this.router, 'server');
           }, 2000);
         }, 2000);
+        this.getDir();
       }, 2500);
     } else {
       setTimeout(() => {
         this.getName();
         this.getBuild();
         this.getVersion();
+        this.getDir();
       }, 2500);
     }
 
@@ -81,6 +84,17 @@ export class AppComponent {
     }).catch((ex: string) => {
       LoggerService.log(ex, "App Component");
       setTimeout(() => this.getName(), 500);
+    });
+  }
+
+  private getDir() {
+    LoggerService.log("Tentative de la récupération du dossier de l'application", "App Component");
+    this.appService.getAppDir().then((dir: any) => {
+      this.appDir = dir;
+      this.showApp();
+    }).catch((ex: string) => {
+      LoggerService.log(ex, "App Component");
+      setTimeout(() => this.getDir(), 500);
     });
   }
 

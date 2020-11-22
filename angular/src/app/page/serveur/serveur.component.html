@@ -1,5 +1,7 @@
 <div [style]="scroll('news-show-bg')" class="all">
-  <div [style]="scroll()" class="content"></div>
+  <div [style]="scroll()" class="content">
+    <app-java-download [alert_only]="true"></app-java-download>
+  </div>
 
   <div [style]="scroll('news')" class="bottom">
     <div (click)="showNews()" class="news">
@@ -22,70 +24,6 @@
   </div>
 
   <div [style]="scroll('news-show')" class="news-content">
-    <div *ngIf="getNewsLength() > 0;else no_news" id="newsContent">
-      <div id="newsStatusContainer">
-        <div id="newsStatusContent">
-          <div id="newsTitleContainer">
-            <a (click)="openLink(getNewsUrl(news_id))" [href]="_curentRoute"
-               id="newsArticleTitle">{{ getNewsTitle(news_id) }}</a>
-          </div>
-          <div id="newsMetaContainer">
-            <div id="newsArticleDateWrapper">
-              <span id="newsArticleDate">{{ getNewsDate(news_id) |  date:'dd/MM/yyyy H:mm' }}</span>
-            </div>
-            <div id="newsArticleAuthorWrapper">
-              <span id="newsArticleAuthor">{{ getNewsCreator(news_id) }}</span>
-            </div>
-            <a (click)="openLink(getNewsUrl(news_id))" [href]="_curentRoute"
-               id="newsArticleComments">{{ getNewsComment(news_id) }} Comments</a>
-          </div>
-        </div>
-        <div id="newsNavigationContainer">
-          <button (click)="minNewsId()" id="newsNavigateLeft">
-            <svg id="newsNavigationLeftSVG" viewBox="0 0 24.87 13.97">
-              <defs>
-                <style>.arrowLine {
-                  fill: none;
-                  stroke: #FFF;
-                  stroke-width: 2px;
-                  transition: 0.25s ease;
-                }</style>
-              </defs>
-              <polyline class="arrowLine" points="0.71 13.26 12.56 1.41 24.16 13.02"></polyline>
-            </svg>
-          </button>
-          <span id="newsNavigationStatus">{{ news_id + 1 }} of {{ getNewsLength()}}</span>
-          <button (click)="addNewsId()" id="newsNavigateRight">
-            <svg id="newsNavigationRightSVG" viewBox="0 0 24.87 13.97">
-              <defs>
-                <style>.arrowLine {
-                  fill: none;
-                  stroke: #FFF;
-                  stroke-width: 2px;
-                  transition: 0.25s ease;
-                }</style>
-              </defs>
-              <polyline class="arrowLine" points="0.71 13.26 12.56 1.41 24.16 13.02"></polyline>
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div id="newsArticleContainer">
-        <div id="newsArticleContent">
-          <div id="newsArticleContentScrollable">
-            <span *ngIf="news !== null" [innerHTML]="getNewsContent(news_id)"
-                  class="e2e-inner-html-interpolated"></span>
-            <a (click)="openLink(getNewsUrl(news_id))" [href]="_curentRoute" class="news-redirect">En lire plus</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-news-show [news]="news"></app-news-show>
   </div>
-  <ng-template #no_news>
-    <div id="newsErrorContainer">
-      <div id="newsErrorNone">
-        <span class="newsErrorContent" id="nENoneSpan">Pas de News</span>
-      </div>
-    </div>
-  </ng-template>
 </div>

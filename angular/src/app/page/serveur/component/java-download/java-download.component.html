@@ -1,0 +1,16 @@
+<div [ngStyle]="{'left': getDownloadStyle()}" class="download">
+  <ng-container *ngIf="percent < 100; else javaUnzip">
+    <div class="info">Téléchargement de java en cour...</div>
+  </ng-container>
+  <ng-template #javaUnzip>
+    <ng-container *ngIf="java_dir == ''; else javaInstalled">
+      <div class="info">Unzip de java en cour....</div>
+    </ng-container>
+  </ng-template>
+  <ng-template #javaInstalled>
+    <ng-container>
+      <div class="info">Java installed : {{java_dir}}</div>
+    </ng-container>
+  </ng-template>
+  <app-progress-bar *ngIf="update" [progress]="percent" [total]="200" height="10px"></app-progress-bar>
+</div>

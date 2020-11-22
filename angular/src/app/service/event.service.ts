@@ -7,12 +7,12 @@ import {LoggerService} from "./logger.service";
 })
 export class EventService {
   public static dev: boolean;
-  private readonly ipc: IpcRenderer | undefined;
+  private readonly _ipc: IpcRenderer | undefined;
 
   constructor() {
     if ((<any>window).require) {
       try {
-        this.ipc = (<any>window).require('electron').ipcRenderer;
+        this._ipc = (<any>window).require('electron').ipcRenderer;
       } catch (error) {
         LoggerService.error('Could not load electron ipc !!!', "App Service");
         throw error;
@@ -22,9 +22,13 @@ export class EventService {
     }
   }
 
+  get ipc(): Electron.IpcRenderer | undefined {
+    return this._ipc;
+  }
+
   async closeApp() {
     return new Promise<boolean>((resolve, reject) => {
-      if (typeof this.ipc === "undefined") {
+      if (typeof this._ipc === "undefined") {
         reject("IPC : undefined");
         return;
       }
@@ -34,18 +38,18 @@ export class EventService {
         return;
       }, 5000);
 
-      this.ipc.removeAllListeners("closeEventReturn");
+      this._ipc.removeAllListeners("closeEventReturn");
 
-      this.ipc.once("closeEventReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
+      this._ipc.once("closeEventReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
         resolve(arg);
       });
-      this.ipc.send("closeEvent");
+      this._ipc.send("closeEvent");
     });
   }
 
   async maxApp() {
     return new Promise<boolean>((resolve, reject) => {
-      if (typeof this.ipc === "undefined") {
+      if (typeof this._ipc === "undefined") {
         reject("IPC : undefined");
         return;
       }
@@ -55,18 +59,18 @@ export class EventService {
         return;
       }, 5000);
 
-      this.ipc.removeAllListeners("maxEventReturn");
+      this._ipc.removeAllListeners("maxEventReturn");
 
-      this.ipc.once("maxEventReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
+      this._ipc.once("maxEventReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
         resolve(arg);
       });
-      this.ipc.send("maxEvent");
+      this._ipc.send("maxEvent");
     });
   }
 
   async minApp() {
     return new Promise<boolean>((resolve, reject) => {
-      if (typeof this.ipc === "undefined") {
+      if (typeof this._ipc === "undefined") {
         reject("IPC : undefined");
         return;
       }
@@ -76,18 +80,18 @@ export class EventService {
         return;
       }, 5000);
 
-      this.ipc.removeAllListeners("minEventReturn");
+      this._ipc.removeAllListeners("minEventReturn");
 
-      this.ipc.once("minEventReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
+      this._ipc.once("minEventReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
         resolve(arg);
       });
-      this.ipc.send("minEvent");
+      this._ipc.send("minEvent");
     });
   }
 
   async getLastVersion() {
     return new Promise<string>((resolve, reject) => {
-      if (typeof this.ipc === "undefined") {
+      if (typeof this._ipc === "undefined") {
         reject("IPC : undefined");
         return;
       }
@@ -97,22 +101,22 @@ export class EventService {
         return;
       }, 5000);
 
-      this.ipc.removeAllListeners("getLastVersionReturn");
+      this._ipc.removeAllListeners("getLastVersionReturn");
 
-      this.ipc.once("getLastVersionReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
+      this._ipc.once("getLastVersionReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
         if (typeof arg === "string") {
           resolve(arg);
         } else {
           reject(arg);
         }
       });
-      this.ipc.send("getLastVersion");
+      this._ipc.send("getLastVersion");
     });
   }
 
   async openUrl(url: string) {
     return new Promise<string>((resolve, reject) => {
-      if (typeof this.ipc === "undefined") {
+      if (typeof this._ipc === "undefined") {
         reject("IPC : undefined");
         return;
       }
@@ -122,18 +126,18 @@ export class EventService {
         return;
       }, 5000);
 
-      this.ipc.removeAllListeners("openLinkReturn");
+      this._ipc.removeAllListeners("openLinkReturn");
 
-      this.ipc.once("openLinkReturn", (event: any, arg: string | PromiseLike<string> | undefined) => {
+      this._ipc.once("openLinkReturn", (event: any, arg: string | PromiseLike<string> | undefined) => {
         resolve(arg);
       });
-      this.ipc.send("openLink", url);
+      this._ipc.send("openLink", url);
     });
   }
 
   async getBuildDate() {
     return new Promise<string>((resolve, reject) => {
-      if (typeof this.ipc === "undefined") {
+      if (typeof this._ipc === "undefined") {
         reject("IPC : undefined");
         return;
       }
@@ -143,22 +147,22 @@ export class EventService {
         return;
       }, 5000);
 
-      this.ipc.removeAllListeners("getBuildDateReturn");
+      this._ipc.removeAllListeners("getBuildDateReturn");
 
-      this.ipc.once("getBuildDateReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
+      this._ipc.once("getBuildDateReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
         if (typeof arg === "string") {
           resolve(arg);
         } else {
           reject(arg);
         }
       });
-      this.ipc.send("getBuildDate");
+      this._ipc.send("getBuildDate");
     });
   }
 
   async getAppName() {
     return new Promise<string>((resolve, reject) => {
-      if (typeof this.ipc === "undefined") {
+      if (typeof this._ipc === "undefined") {
         reject("IPC : undefined");
         return;
       }
@@ -168,22 +172,47 @@ export class EventService {
         return;
       }, 5000);
 
-      this.ipc.removeAllListeners("getAppNameReturn");
+      this._ipc.removeAllListeners("getAppNameReturn");
 
-      this.ipc.once("getAppNameReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
+      this._ipc.once("getAppNameReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
         if (typeof arg === "string") {
           resolve(arg);
         } else {
           reject(arg);
         }
       });
-      this.ipc.send("getAppName");
+      this._ipc.send("getAppName");
+    });
+  }
+
+  async getAppDir() {
+    return new Promise<string>((resolve, reject) => {
+      if (typeof this._ipc === "undefined") {
+        reject("IPC : undefined");
+        return;
+      }
+
+      setTimeout(() => {
+        reject('GetAppDir : Timeout');
+        return;
+      }, 5000);
+
+      this._ipc.removeAllListeners("getAppDirReturn");
+
+      this._ipc.once("getAppDirReturn", (event: any, arg: string | PromiseLike<boolean> | undefined) => {
+        if (typeof arg === "string") {
+          resolve(arg);
+        } else {
+          reject(arg);
+        }
+      });
+      this._ipc.send("getAppDir");
     });
   }
 
   async toggleDevTools() {
     return new Promise<boolean>((resolve, reject) => {
-      if (typeof this.ipc === "undefined") {
+      if (typeof this._ipc === "undefined") {
         reject("IPC : undefined");
         return;
       }
@@ -193,16 +222,41 @@ export class EventService {
         return;
       }, 5000);
 
-      this.ipc.removeAllListeners("toggleDevToolsReturn");
+      this._ipc.removeAllListeners("toggleDevToolsReturn");
 
-      this.ipc.once("toggleDevToolsReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
+      this._ipc.once("toggleDevToolsReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
         if (typeof arg === "boolean") {
           resolve(arg);
         } else {
           reject(arg);
         }
       });
-      this.ipc.send("toggleDevTools");
+      this._ipc.send("toggleDevTools");
+    });
+  }
+
+  openDir(dir: string) {
+    return new Promise<boolean>((resolve, reject) => {
+      if (typeof this._ipc === "undefined") {
+        reject("IPC : undefined");
+        return;
+      }
+
+      setTimeout(() => {
+        reject('openDir : Timeout');
+        return;
+      }, 5000);
+
+      this._ipc.removeAllListeners("openDirReturn");
+
+      this._ipc.once("openDirReturn", (event: any, arg: boolean | PromiseLike<boolean> | undefined) => {
+        if (typeof arg === "boolean") {
+          resolve(arg);
+        } else {
+          reject(arg);
+        }
+      });
+      this._ipc.send("openDir", dir);
     });
   }
 }

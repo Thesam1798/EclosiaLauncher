@@ -11,6 +11,9 @@ import {AlertComponent} from "./_alert/component/alert.component";
 import {LoaderComponent} from './component/loader/loader.component';
 import {ServeurComponent} from './page/serveur/serveur.component';
 import {ConnectionServiceModule} from "ng-connection-service";
+import {ProgressBarComponent} from './component/progress-bar/progress-bar.component';
+import {NewsShowComponent} from './page/serveur/component/news-show/news-show.component';
+import {JavaDownloadComponent} from './page/serveur/component/java-download/java-download.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import {ConnectionServiceModule} from "ng-connection-service";
     HeaderComponent,
     AlertComponent,
     LoaderComponent,
-    ServeurComponent
+    ServeurComponent,
+    ProgressBarComponent,
+    NewsShowComponent,
+    JavaDownloadComponent
   ],
   imports: [
     BrowserModule,
